@@ -3,7 +3,7 @@ from flask import Blueprint, Flask, redirect, url_for, render_template, request,
 bp = Blueprint('damage_calc', __name__)
 
 # Constants
-game_version = "1.1"
+game_version = "1.1.1"
 # Readable names
 weapon_name_dict = {
     "greataxe": "Great Axe",
@@ -20,7 +20,7 @@ weapon_name_dict = {
     "lifestaff": "Life Staff"
 }
 # List of attributes (by index). If dual attribute, first is 90%, second is 65%
-weapon_damage_types = {
+weapon_attributes = {
     "greataxe": ['strength'],
     "warhammer": ['strength'],
     "hatchet": ['strength', 'dexterity'],
@@ -47,6 +47,20 @@ true_base_damages = {
     "icegauntlet": 56,
     "voidgauntlet": 54,
     "lifestaff": 55
+}
+weapon_damage_types = {
+    "greataxe": "Slash",
+    "warhammer": "Strike",
+    "hatchet": "Slash",
+    "sword": "Slash",
+    "spear": "Thrust",
+    "bow": "Thrust",
+    "musket": "Thrust",
+    "rapier": "Thrust",
+    "firestaff": "Fire",
+    "icegauntlet": "Ice",
+    "voidgauntlet": "Void",
+    "lifestaff": "Nature"
 }
 
 
@@ -102,7 +116,7 @@ def gem_damage(weapon, char_info):
         # Life staff cannot use focus gems
         if weapon['id'] == "lifestaff":
             weapon['gem_type'] = "None"
-            return attribute_damage
+            return attribute_damage, 0
 
         gem_damage = damageGain(char_info['focus']) * weapon['base_damage']
 
@@ -134,7 +148,7 @@ def gem_damage(weapon, char_info):
     else:
         end_gem_damage = (gem_tier / 10) * attribute_damage
     
-    return round(base_damage + end_gem_damage)
+    return base_damage, end_gem_damage
 
 
 def damageGain(attribute_val):
@@ -159,7 +173,7 @@ def weapon_damage(weapon, char_info):
     base_damage = weapon['base_damage']
     char_level = char_info['level']
 
-    damage_types = weapon_damage_types[weapon_type]
+    damage_types = weapon_attributes[weapon_type]
     attribute_damage = 0
 
     if len(damage_types) == 1:
@@ -231,12 +245,17 @@ def get_weapons(form, weapon1, weapon2):
     weapon1['gem_type'] = form["weapon1_gem"]
     weapon2['gem_type'] = form["weapon2_gem"]
 
+    # Gear score
     weapon1['gear_score'] = validate_num(form["weapon1_gs"], 100, 600)
     weapon2['gear_score'] = validate_num(form["weapon2_gs"], 100, 600)
 
 
 def calc_weapons(weapon1, weapon2, char_info):
     """Calculate weapon damage, gem damage, etc."""
+
+    # Damage type
+    weapon1['damage_type'] = weapon_damage_types[weapon1['id']]
+    weapon2['damage_type'] = weapon_damage_types[weapon2['id']]
 
     weapon1['true_base_damage'] = true_base_damages[weapon1['id']]
     weapon2['true_base_damage'] = true_base_damages[weapon2['id']]
@@ -248,9 +267,19 @@ def calc_weapons(weapon1, weapon2, char_info):
     weapon2['weapon_damage'] = weapon_damage(weapon2, char_info)
 
     if weapon1['gem_type'] != "None":
-        weapon1['weapon_damage'] = gem_damage(weapon1, char_info)
+        normal_damage, elemental_damage  = gem_damage(weapon1, char_info)
+        weapon1['normal_damage'] = round(normal_damage)
+        weapon1['elemental_damage'] = round(elemental_damage)
+        weapon1['weapon_damage'] = round(normal_damage + elemental_damage)
+    else:
+        weapon1['normal_damage'] = weapon_damage(weapon1, char_info)
     if weapon2['gem_type'] != "None":
-        weapon2['weapon_damage'] = gem_damage(weapon2, char_info)
+        normal_damage, elemental_damage  = gem_damage(weapon2, char_info)
+        weapon2['normal_damage'] = round(normal_damage)
+        weapon2['elemental_damage'] = round(elemental_damage)
+        weapon2['weapon_damage'] = round(normal_damage + elemental_damage)
+    else:
+        weapon2['normal_damage'] = weapon_damage(weapon2, char_info)
 
     
 
@@ -260,8 +289,8 @@ def calc_weapons(weapon1, weapon2, char_info):
 def damage_calc():
 
     char_info = {"strength": 5, "dexterity": 5, "intelligence": 5, "focus": 5, "constitution": 5, "level": 60, "health": 6000}
-    weapon1 = {"id": "greataxe", "name": "Great Axe", "base_damage": 199, "weapon_damage": 493, "gem_type": "None", "true_base_damage": 82, "gear_score": 500}
-    weapon2 = {"id": "warhammer", "name": "War Hammer", "base_damage": 204, "weapon_damage": 505, "gem_type": "None", "true_base_damage": 84, "gear_score": 500}
+    weapon1 = {"id": "greataxe", "name": "Great Axe", "base_damage": 199, "weapon_damage": 493, "gem_type": "None", "true_base_damage": 82, "gear_score": 500, "damage_type": "Slash", "normal_damage": 0, "elemental_damage": 0}
+    weapon2 = {"id": "warhammer", "name": "War Hammer", "base_damage": 204, "weapon_damage": 505, "gem_type": "None", "true_base_damage": 84, "gear_score": 500, "damage_type": "Strike", "normal_damage": 0, "elemental_damage": 0}
     
     if request.method == "POST":
 

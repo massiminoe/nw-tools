@@ -200,7 +200,38 @@
 
                     <!-- Weapon Damage -->
                     <div class="pt-3"> </div>
-                    <div class="row border-top py-3 border-bottom">
+                    <div class="row border-top pt-3"></div>
+
+                    <div class="row pb-2">
+                      <div class="col-md-8 px-3 pt-2 text-left">
+                        <h5>
+                          <img src="/static/images/{{weapon1['damage_type']}}.webp" alt=""> <span class="px-1">{{weapon1['damage_type']}} Damage:</span>
+                        </h5>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <input type="text" class="form-control form-control text-center" value={{weapon1['normal_damage']}} readonly>
+                      </div>
+                    </div>
+
+                    {% if weapon1['gem_type'] != "None" %}
+                    <div class="row pb-2">
+                      <div class="col-md-8 px-3 pt-2 text-left">
+                        <h5>
+                          {% if weapon1['gem_type'][3] == "F" %}
+                          <img src="/static/images/nature.webp" alt="">
+                          {% else %}
+                          <img src="/static/images/lightning.webp" alt="">
+                          {% endif %}
+                          <span class="px-1">Elemental Damage:</span>
+                        </h5>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <input type="text" class="form-control form-control text-center" value={{weapon1['elemental_damage']}} readonly>
+                      </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="row pb-3 border-bottom">
                       <div class="col-md-8 px-4 pt-2 text-left">
                         <h4>
                           <b>
@@ -326,7 +357,38 @@
 
                     <!-- Weapon Damage -->
                     <div class="pt-3"> </div>
-                    <div class="row border-top py-3 border-bottom">
+                    <div class="row border-top pt-3"></div>
+
+                    <div class="row pb-2">
+                      <div class="col-md-8 px-3 pt-2 text-left">
+                        <h5>
+                          <img src="/static/images/{{weapon1['damage_type']}}.webp" alt=""> <span class="px-1">{{weapon1['damage_type']}} Damage:</span>
+                        </h5>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <input type="text" class="form-control form-control text-center" value={{weapon1['normal_damage']}} readonly>
+                      </div>
+                    </div>
+
+                    {% if weapon2['gem_type'] != "None" %}
+                    <div class="row pb-2">
+                      <div class="col-md-8 px-3 pt-2 text-left">
+                        <h5>
+                          {% if weapon2['gem_type'][3] == "F" %}
+                          <img src="/static/images/nature.webp" alt="">
+                          {% else %}
+                          <img src="/static/images/lightning.webp" alt="">
+                          {% endif %}
+                          <span class="px-1">Elemental Damage:</span>
+                        </h5>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <input type="text" class="form-control form-control text-center" value={{weapon2['elemental_damage']}} readonly>
+                      </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="row pb-3 border-bottom">
                       <div class="col-md-8 px-4 pt-2 text-left">
                         <h4>
                           <b>
@@ -339,7 +401,7 @@
                         </h4>
                       </div>
                       <div class="col-md-4 text-right">
-                        <input type="text" class="form-control form-control-lg text-center bg-dark text-light" style="font-weight: 900;font-size:x-large;" value={{weapon2['weapon_damage']}} readonly>
+                        <input type="text" class="form-control form-control-lg text-center text-light bg-dark" value={{weapon2['weapon_damage']}} style="font-weight: 900;font-size:x-large;" readonly>
                       </div>
                     </div>
                     
@@ -426,19 +488,9 @@
 
         <div class="py-2"></div>
 
-        <div class="container border-top pt-2 pb-4">
-          <h4>
-            Weapons that scale with two attributes:
-          </h4>
-          <p class=lead>
-            If a weapon scales with two attributes, then it will have two attributes damages which contribute to its weapon damage. Its primary (the one listed first) attribute damage scales at 90%, and its secondary at 65%.
-            This means that your first point in strength will add <b><i>1.625%</i></b> of base damage for a great axe and <b><i>1.463%</i></b> for a hatchet. 
-          </p>
-        </div>
-
         <div class="container border-top pt-2">
           <h4>
-            Calculating damage with scaling gems:
+            Weapons that scale with two attributes:
           </h4>
           <p class=lead>
             If a weapon scales with two attributes, then it will have two attributes damages which contribute to its weapon damage. Its primary (the one listed first) attribute damage scales at 90%, and its secondary at 65%.
