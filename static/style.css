@@ -1,0 +1,56 @@
+/*
+body::before {
+    display: block;
+    content: '';
+    height: 60px;
+}
+*/
+
+img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+div.card.wd {
+      outline: 2px solid whitesmoke;
+      background-color: #2d3844;
+  }
+
+#tooltip[data-popper-placement^='top'] > #arrow {
+  bottom: -4px;
+}
+
+#tooltip[data-popper-placement^='bottom'] > #arrow {
+  top: -4px;
+}
+
+#tooltip[data-popper-placement^='left'] > #arrow {
+  right: -4px;
+}
+
+#tooltip[data-popper-placement^='right'] > #arrow {
+  left: -4px;
+}
+
+.tooltip-inner {
+  background: #333;
+  max-width: 400px;
+  /* If max-width does not work, try using width instead */
+  width: 400px; 
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+  border-top-color: #333;
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+  border-bottom-color: #333;
+}
+
+.tooltip.bs-tooltip-start .tooltip-arrow::before {
+  border-left-color: #333;
+}
+
+.tooltip.bs-tooltip-end .tooltip-arrow::before {
+  border-right-color: #333;
+}

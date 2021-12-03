@@ -1,0 +1,571 @@
+{% extends "base.html" %}
+{% block content%}
+<div class="container" style="background-color: rgb(20, 20, 20);">
+
+<!-- How To -->
+<section class="pt-3">
+  <div class="container text-light text-center">
+    <h2 style="text-align:center;">
+      Damage Calculator
+      </span>
+    </h2>
+  </div>
+</section>
+
+<!-- Forms -->
+<section class="py-3">
+  <form action="" id="all_forms" method="post">
+    <input type="submit" style="display: none" />
+  <div class="container">
+    <div class="row g-4">
+      <!-- Attributes Column -->
+      <div class="col-lg-3">
+        <div class="card bg-dark text-light" style="background-color: rgb(58, 48, 44);border: 1px solid #495867;">
+            <div class="card-body">
+                <h3 class="card-title text-center border-bottom pb-2">
+                    Attributes
+                </h3>
+                <p class="card-text">
+                  <!-- Forms -->
+                  <div class="row mb-2">
+                    <label for="strength" class="col-md-6 col-form-label"><h5>STR:</h5></label>
+                    <div class="col-md-6">
+                      <input type="text" name="strength" class="form-control" id="strength" value={{char_info['strength']}}>
+                    </div>
+                    <label for="dexterity" class="col-md-6 col-form-label"><h5>DEX:</h5></label>
+                    <div class="col-md-6">
+                      <input type="text" name="dexterity" class="form-control" id="dexterity" value={{char_info['dexterity']}}>
+                    </div>
+                    <label for="intelligence" class="col-md-6 col-form-label"><h5>INT:</h5></label>
+                    <div class="col-md-6">
+                      <input type="text" name="intelligence" class="form-control" id="intelligence" value={{char_info['intelligence']}}>
+                    </div>
+                    <label for="focus" class="col-md-6 col-form-label"><h5>FOC:</h5></label>
+                    <div class="col-md-6">
+                      <input type="text" name="focus" class="form-control" id="focus" value={{char_info['focus']}}>
+                    </div>
+                    <label for="constitution" class="col-md-6 col-form-label"><h5>CON:</h5></label>
+                    <div class="col-md-6">
+                      <input type="text" name="constitution" class="form-control" id="constitution" value={{char_info['constitution']}}>
+                    </div> 
+
+                    <div class="container">
+                      <div class="border-bottom pt-4 pb-3"></div>
+                    </div>
+
+                    <label for="level" class="col-md-8 col-form-label pt-3"><h5 class="pt-1">Character Level:</h5></label>
+                    <div class="col-md-4 pt-3">
+                      <input type="text" name="level" class="form-control" id="level" value={{char_info['level']}}>
+                    </div> 
+                    <div class="container pt-2"></div>
+                    <label for="constitution" class="col-md-6 col-form-label">
+                      <h5>Health:
+                        <!-- Tooltip! -->
+                        {% if char_info['level'] != 60 %}
+                        <span data-toggle="tooltip" class="text-light" title="This value is only calculated at level 60."><i class="px-2 bi-question-circle-fill"></i></span>
+                        {% endif %}
+                      </h5>
+                    </label>
+                    <div class="col-md-6">
+                      <input type="text" name="health" class="form-control text-center" id="health" value={{char_info['health']}} readonly>
+                    </div> 
+
+                    <div class="container">
+                      <div class="border-bottom pt-3"></div>
+                    </div>
+                  </div>
+                  
+            </div>
+        </div>
+
+        <div class="row pt-2 pb-2"></div>
+
+        <!-- Submit -->
+        <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+          <div class="card-body text-center">
+              <button class="btn btn-danger btn-lg px-5" onclick="reset_forms()">  Reset  </button>
+          </div>
+            <div class="card-body text-center">
+              <button type="submit" form="all_forms" class="btn btn-primary btn-lg px-5">Update</button>
+            </div>
+        </div>
+      
+      </div>
+      <!-- Weapons card -->
+      <div class="col-lg-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                <div class="card-body">
+                  <h3 class="card-title text-center border-bottom pb-2">
+                    Weapon 1
+                  </h3>
+                    <div class="row">
+                      <div class="col pb-4">
+                          <select class="form-select" name="weapon1_name" onchange="all_forms.submit()">
+                            <option hidden value="{{weapon1['id']}}">{{weapon1['name']}}</option>
+                            <option value="greataxe">Great Axe</option>
+                            <option value="warhammer">War Hammer</option>
+                            <option value="hatchet">Hatchet</option>
+                            <option value="sword">Sword</option>
+                            <option value="spear">Spear</option>
+                            <option value="bow">Bow</option>
+                            <option value="musket">Musket</option>
+                            <option value="rapier">Rapier</option>
+                            <option value="firestaff">Fire Staff</option>
+                            <option value="icegauntlet">Ice Gauntlet</option>
+                            <option value="voidgauntlet">Void Gauntlet</option>
+                            <option value="lifestaff">Life Staff</option>
+                          </select>
+                      </div>
+                    </div>
+                    <h3 class="card-title text-center text-warning" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                      <span style="text-shadow: 3px 3px black;">
+                        {% if weapon1['id'] in ["spear", "bow"] %}
+                        Ironwood
+                        {% else %}
+                        Orichalcum
+                        {% endif %}
+                        {{weapon1['name']}}
+                      </span>                      
+
+                      {% if weapon1['id'] == "lifestaff" %}
+                      <!-- Tooltip! -->
+                      <span data-toggle="tooltip" class="text-warning" title="Scaling for life staves may be inaccurate. Additionally, life staves cannot use focus gems. <sup>(Relevant for update {{game_version}})</sup>"><i class="px-2 bi-question-circle-fill"></i></span>
+                      {% endif %}
+
+                    </h3>
+                    <img src="{{'/static/images/' + weapon1['id'] + '.png'}}" alt="">
+
+                    <!-- Weapon Stats -->
+                    <!-- GS -->
+                    <div class="row">
+                      <div class="col-md-9 px-4">
+                        <h4 class="card-title text-left pt-1">
+                          <b>
+                            Gear Score:
+                          </b>
+                        </h4>
+                      </div>
+                      <div class="col-md-3">
+                        <input type="text" name="weapon1_gs" class="form-control" id="weapon1_gs" value={{weapon1['gear_score']}} onchange="document.getElementById('weapon1_gs_slider').value = this.value;update_bd1({{weapon1['true_base_damage']}}, this.value);">
+                      </div>
+                    </div>
+                    <div class="row px-4 pb-3 pt-2">
+                        <input type="range" class="form-range gs_slider" min="100" max="600" step="1" id="weapon1_gs_slider" value="{{weapon1['gear_score']}}" onchange="update_bd1({{weapon1['true_base_damage']}}, this.value);">
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-7 px-4">
+                        <h5 class="card-title text-left pt-1">
+                          Gem Type:
+
+                          <!-- Gem Tooltip -->
+                          <span data-toggle="tooltip" title="Scaling gems are currently bugged; You will get the most damage with a T2 (Flawed) <sup>(Relevant for update {{game_version}})</sup>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                        </h5>
+                      </div>
+                      <div class="col-md-5">
+                        <select class="form-select" name="weapon1_gem" id="weapon1_gem">
+                          <option hidden value="{{weapon1['gem_type']}}">{{weapon1['gem_type']}}</option>
+                          <option value="None">None</option>
+                          {% if weapon1['id'] != "lifestaff" %}
+                          <option value="T2 Focus">T2 Focus</option>
+                          <option value="T3 Focus">T3 Focus</option>
+                          <option value="T4 Focus">T4 Focus</option>
+                          <option value="T5 Focus">T5 Focus</option>
+                          {% endif %}
+                          <option value="T2 Intelligence">T2 Intelligence</option>
+                          <option value="T3 Intelligence">T3 Intelligence</option>
+                          <option value="T4 Intelligence">T4 Intelligence</option>
+                          <option value="T5 Intelligence">T5 Intelligence</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row pt-2">
+                      <div class="col-md-9 px-4">
+                        <h5 class="card-title text-left pt-1">
+                          Base Damage:
+
+                          <!-- Tooltip! -->
+                          <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Base damage refers to this number:</p><img src=&quot;/static/images/greataxe_base_damage_crop.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>If your weapon has two damage types, this is added together.</p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                        </h5>
+                      </div>
+                      <div class="col-md-3">
+                        <input type="text" name="weapon1_damage" class="form-control text-center" id="weapon1_damage" value={{weapon1['base_damage']}} readonly>
+                      </div>
+                    </div>
+
+                    <!-- Weapon Damage -->
+                    <div class="pt-3"> </div>
+                    <div class="row border-top py-3 border-bottom">
+                      <div class="col-md-8 px-4 pt-2 text-left">
+                        <h4>
+                          <b>
+                            Weapon Damage:
+                          </b>
+
+                          <!-- Tooltip! -->
+                          <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Weapon damage refers to this number:</p><img src=&quot;/static/images/greataxe_weapon_damage.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>This may appear incorrectly in-game for weapons with scaling gems <sup>(Relevant for update {{game_version}})</sup></p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                        </h4>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <input type="text" class="form-control form-control-lg text-center text-light bg-dark" value={{weapon1['weapon_damage']}} style="font-weight: 900;font-size:x-large;" readonly>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                <div class="card-body">
+                  <h3 class="card-title text-center border-bottom pb-2">
+                    Weapon 2
+                  </h3>
+                    <div class="row">
+                      <div class="col pb-4">
+                          <select class="form-select" name="weapon2_name" onchange="all_forms.submit()">
+                            <option hidden value="{{weapon2['id']}}">{{weapon2['name']}}</option>
+                            <option value="greataxe">Great Axe</option>
+                            <option value="warhammer">War Hammer</option>
+                            <option value="hatchet">Hatchet</option>
+                            <option value="sword">Sword</option>
+                            <option value="spear">Spear</option>
+                            <option value="bow">Bow</option>
+                            <option value="musket">Musket</option>
+                            <option value="rapier">Rapier</option>
+                            <option value="firestaff">Fire Staff</option>
+                            <option value="icegauntlet">Ice Gauntlet</option>
+                            <option value="voidgauntlet">Void Gauntlet</option>
+                            <option value="lifestaff">Life Staff</option>
+                          </select>
+                      </div>
+                    </div>
+                    <h3 class="card-title text-center text-warning" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                      <span style="text-shadow: 3px 3px black;">
+                        {% if weapon2['id'] in ["spear", "bow"] %}
+                        Ironwood
+                        {% else %}
+                        Orichalcum
+                        {% endif %}
+                        {{weapon2['name']}}
+                      </span>                      
+
+                      {% if weapon2['id'] == "lifestaff" %}
+                      <!-- Tooltip! -->
+                      <span data-toggle="tooltip" class="text-warning" title="Scaling for life staves may be inaccurate. Additionally, life staves cannot use focus gems. <sup>(Relevant for update {{game_version}})</sup>"><i class="px-2 bi-question-circle-fill"></i></span>
+                      {% endif %}
+
+                    </h3>
+                    <img src="{{'/static/images/' + weapon2['id'] + '.png'}}" alt="">
+
+                    <!-- Weapon Stats -->
+                    <!-- GS -->
+                    <div class="row">
+                      <div class="col-md-9 px-4">
+                        <h4 class="card-title text-left pt-1">
+                          <b>
+                            Gear Score:
+                          </b>
+                        </h4>
+                      </div>
+                      <div class="col-md-3">
+                        <input type="text" name="weapon2_gs" class="form-control" id="weapon2_gs" value={{weapon2['gear_score']}} onchange="document.getElementById('weapon2_gs_slider').value = this.value;update_bd2({{weapon2['true_base_damage']}}, this.value);">
+                      </div>
+                    </div>
+                    <div class="row px-4 pb-3 pt-2">
+                        <input type="range" class="form-range gs_slider" min="100" max="600" step="1" id="weapon2_gs_slider" value="{{weapon2['gear_score']}}" onchange="update_bd2({{weapon2['true_base_damage']}}, this.value);">
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-7 px-4">
+                        <h5 class="card-title text-left pt-1">
+                          Gem Type:
+
+                          <!-- Gem Tooltip -->
+                          <span data-toggle="tooltip" title="Scaling gems are currently bugged; You will get the most damage with a T2 (Flawed) <sup>(Relevant for update {{game_version}})</sup>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                        </h5>
+                      </div>
+                      <div class="col-md-5">
+                        <select class="form-select" name="weapon2_gem" id="weapon2_gem">
+                          <option hidden value="{{weapon2['gem_type']}}">{{weapon2['gem_type']}}</option>
+                          <option value="None">None</option>
+                          {% if weapon2['id'] != "lifestaff" %}
+                          <option value="T2 Focus">T2 Focus</option>
+                          <option value="T3 Focus">T3 Focus</option>
+                          <option value="T4 Focus">T4 Focus</option>
+                          <option value="T5 Focus">T5 Focus</option>
+                          {% endif %}
+                          <option value="T2 Intelligence">T2 Intelligence</option>
+                          <option value="T3 Intelligence">T3 Intelligence</option>
+                          <option value="T4 Intelligence">T4 Intelligence</option>
+                          <option value="T5 Intelligence">T5 Intelligence</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row pt-2">
+                      <div class="col-md-9 px-4">
+                        <h5 class="card-title text-left pt-1">
+                          Base Damage:
+
+                          <!-- Tooltip! -->
+                          <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Base damage refers to this number:</p><img src=&quot;/static/images/greataxe_base_damage_crop.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>If your weapon has two damage types, this is added together.</p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                        </h5>
+                      </div>
+                      <div class="col-md-3">
+                        <input type="text" name="weapon2_damage" class="form-control text-center" id="weapon2_damage" value={{weapon2['base_damage']}} readonly>
+                      </div>
+                    </div>
+
+                    <!-- Weapon Damage -->
+                    <div class="pt-3"> </div>
+                    <div class="row border-top py-3 border-bottom">
+                      <div class="col-md-8 px-4 pt-2 text-left">
+                        <h4>
+                          <b>
+                            Weapon Damage:
+                          </b>
+
+                          <!-- Tooltip! -->
+                          <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Weapon damage refers to this number:</p><img src=&quot;/static/images/greataxe_weapon_damage.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>This may appear incorrectly in-game for weapons with scaling gems <sup>(Relevant for update {{game_version}})</sup></p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                        </h4>
+                      </div>
+                      <div class="col-md-4 text-right">
+                        <input type="text" class="form-control form-control-lg text-center bg-dark text-light" style="font-weight: 900;font-size:x-large;" value={{weapon2['weapon_damage']}} readonly>
+                      </div>
+                    </div>
+                    
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</form>
+</section>
+
+<section class="py-4 text-light">
+  <div class="container">
+    <!-- How is this Calculated? -->
+    <h2 class="text-center pb-3">
+      How Is This Calculated?
+    </h2>
+
+    <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="container border-bottom">
+              <p class="lead pt-3">
+                <i><b>Weapon damage</b></i> is the sum of your <i><b>level damage</b></i> and <i><b>attribute damage</b></i>. Both of these depend on your weapon's <i><b>base damage</b></i>.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row pb-2">
+          <div class="col-lg-4">
+            <div class="container">
+              <p class="pt-4">
+                <i><b>Level damage</b></i> is calculated like so:
+              </p>
+              <p>
+                ((Character Level - 1) * 0.025 + 1) * Base Damage
+              </p>
+              <p class="pt-1">
+                <i><b>Attribute damage</b></i> is increased by a percentage of your <i><b>base damage</b></i> for each point you add, with diminishing returns.<p class="lead">
+              </p>
+              <table class="table text-light">
+                <thead>
+                  <tr>
+                    <td>Points Range</td>
+                    <td>% Increase</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>6-100</td>
+                    <td>+1.625%</td>
+                  </tr>
+                  <tr>
+                    <td>101-150</td>
+                    <td>+1.3%</td>
+                  </tr>
+                  <tr>
+                    <td>151-200</td>
+                    <td>+1.17%</td>
+                  </tr>
+                  <tr>
+                    <td>201-250</td>
+                    <td>+1.04%</td>
+                  </tr>
+                  <tr>
+                    <td>251-300</td>
+                    <td>+0.91%</td>
+                  </tr>
+                  <tr>
+                    <td>301+</td>
+                    <td>+0.78%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-8 pt-4">
+            <img src="/static/images/greataxe_graph_4.png" alt="" style="border: 2px solid #495867;">
+          </div>
+        </div>
+
+        <div class="py-2"></div>
+
+        <div class="container border-top pt-2 pb-4">
+          <h4>
+            Weapons that scale with two attributes:
+          </h4>
+          <p class=lead>
+            If a weapon scales with two attributes, then it will have two attributes damages which contribute to its weapon damage. Its primary (the one listed first) attribute damage scales at 90%, and its secondary at 65%.
+            This means that your first point in strength will add <b><i>1.625%</i></b> of base damage for a great axe and <b><i>1.463%</i></b> for a hatchet. 
+          </p>
+        </div>
+
+        <div class="container border-top pt-2">
+          <h4>
+            Calculating damage with scaling gems:
+          </h4>
+          <p class=lead>
+            If a weapon scales with two attributes, then it will have two attributes damages which contribute to its weapon damage. Its primary (the one listed first) attribute damage scales at 90%, and its secondary at 65%.
+            This means that your first point in strength will add <b><i>1.625%</i></b> of base damage for a great axe and <b><i>1.463%</i></b> for a hatchet. 
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pb-5 pt-3 text-light">
+  <h2 class="text-center pb-3">
+    Credits/Attributions
+  </h2>
+  <div class="container" id="credits">
+    <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+      <div class="card-body">
+        <table class="table text-light" style="font-weight: normal;">
+          <tobdy>
+            <p class="lead">
+              <tr>
+                <th>
+                  • New World Datatables (Datamining) by navarroj00 (<a href="https://github.com/navarroj00/new-world-datatables" target="_blank">Github</a>)
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  • Original Damage Calculator by Bunzaga (<a href="https://docs.google.com/spreadsheets/d/14I0C78KyaWx0pHEV30M59rkZszqiNt2E6gaHYeXC9XM/edit#gid=1097157556" target="_blank">Google Sheets</a>)
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  • Modified Damage Calculator by OJ_of_Steel (<a href="https://docs.google.com/spreadsheets/d/1tz2PFABkykuhBxZ3MoJEO9KNwY0X20qs0gII-x370AA/edit#gid=1097157556" target="_blank">Google Sheets</a>)
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  • New World Database by Xyo (<a href="https://nwdb.info" target="_blank">Website</a>)
+                </th>
+              </tr>
+            </p>
+          </tobdy>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+
+
+<script>
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({html:true});
+  });
+</script>
+
+<script>
+  function reset_forms() {
+    document.getElementById("strength").value = 5;
+    document.getElementById("dexterity").value = 5;
+    document.getElementById("intelligence").value = 5;
+    document.getElementById("focus").value = 5;
+    document.getElementById("constitution").value = 5;
+    document.getElementById("level").value = 60;
+    document.getElementById("weapon1_gem").value = "None";
+    document.getElementById("weapon2_gem").value = "None";
+  }
+</script>
+
+<script>
+  let slider1 = document.getElementById("weapon1_gs_slider"), gs1 = document.getElementById("weapon1_gs"), slider2 = document.getElementById("weapon2_gs_slider"), gs2 = document.getElementById("weapon2_gs");
+
+  slider1.addEventListener('input', function () {
+    gs1.value = slider1.value;
+  }, false);
+  slider2.addEventListener('input', function () {
+    gs2.value = slider2.value;
+  }, false);
+
+  gs1.addEventListener('change', function () {
+    if (gs1.value > 600) {
+      gs1.value = 600;
+    } else if (gs1.value < 100) {
+      gs1.value = 100;
+    }
+  }, false);
+  gs2.addEventListener('change', function () {
+    if (gs2.value > 600) {
+      gs2.value = 600;
+    } else if (gs2.value < 100) {
+      gs2.value = 100;
+    }
+  }, false);
+
+</script>
+
+<script>
+  function update_bd1(true_base_damage) {
+    var gear_score = document.getElementById('weapon1_gs_slider').value;
+    var newBD = Math.round(base_scaling(gear_score) * true_base_damage);
+    document.getElementById('weapon1_damage').value = newBD;
+  }
+  function update_bd2(true_base_damage) {
+    var gear_score = document.getElementById('weapon2_gs_slider').value;
+    var newBD = Math.round(base_scaling(gear_score) * true_base_damage);
+    document.getElementById('weapon2_damage').value = newBD;
+  }
+</script>
+
+<script>
+  function base_scaling(gear_score) {
+    var adj_gear_score = gear_score - (gear_score % 5);
+    if (adj_gear_score < 200) {
+      return 0.24 * ((adj_gear_score - 100) / 100) + 1
+    } else if (adj_gear_score < 300) {
+      return 0.31439 * ((adj_gear_score - 200) / 100) + 1.24
+    } else if (adj_gear_score < 400) {
+      return 0.38761 * ((adj_gear_score - 300) / 100) + 1.55439
+    } else if (adj_gear_score < 500) {
+      return 0.48675 * ((adj_gear_score - 400) / 100) + 1.942
+    } else {
+      return 0.39365 * ((adj_gear_score - 500) / 100) + 2.42874
+    }
+  }
+</script>
+{% endblock %}
