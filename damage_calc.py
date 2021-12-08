@@ -1,4 +1,6 @@
 from flask import Blueprint, Flask, redirect, url_for, render_template, request, session, flash
+from extensions import db, damage_calculation
+from datetime import datetime
 import math
 
 bp = Blueprint('damage_calc', __name__)
@@ -280,7 +282,17 @@ def calc_weapons(weapon1, weapon2, char_info):
     weapon1['base_damage'] = math.floor(weapon1['base_damage'])
     weapon2['base_damage'] = math.floor(weapon2['base_damage'])
 
-    
+
+# Database
+def save_data(char_info, weapon1, weapon2):
+    """Save data from a submitted damage calculation to the database"""
+
+    calc = damage_calculation(strength=char_info['strength'], timestamp=datetime.now(), dexterity=char_info['dexterity'], intelligence=char_info['intelligence'], focus=char_info['focus'], constitution=char_info['constitution'], level=char_info['level'],\
+     w1_type=weapon1['id'], w1_gs=weapon1['gear_score'], w1_gem=weapon1['gem_type'], w1_damage=weapon1['weapon_damage'],\
+     w2_type=weapon2['id'], w2_gs=weapon2['gear_score'], w2_gem=weapon2['gem_type'], w2_damage=weapon2['weapon_damage'])
+
+    db.session.add(calc)
+    db.session.commit()
 
 
 @bp.route("/", methods=["POST", "GET"])
@@ -296,6 +308,9 @@ def damage_calc():
         get_char_info(request.form, char_info)
         get_weapons(request.form, weapon1, weapon2)
         calc_weapons(weapon1, weapon2, char_info)
+
+        save_data(char_info, weapon1, weapon2)  # Save to db
+        print(damage_calculation.query.all())
 
         return render_template("damage_calc.html", char_info=char_info, weapon1=weapon1, weapon2=weapon2, game_version=game_version)
     else:

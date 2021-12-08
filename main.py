@@ -1,19 +1,18 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 import damage_calc
-#from flask_sqlalchemy import SQLAlchemy
+from extensions import db
 
 app = Flask(__name__)
-app.secret_key = "dev"
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
-#app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-#app.permanent_session_lifetime = timedelta(minutes=30)
-
-#db = SQLAlchemy(app)
 
 app.register_blueprint(damage_calc.bp)
 
+# DB
+app.secret_key = "6XDBTslHTzQIYj8oLTaaeVo93zatWu4Ky5dA"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
+
 if __name__ == "__main__":
-    #db.create_all()
 
     app.run(debug=True)
 
