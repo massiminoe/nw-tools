@@ -1,4 +1,5 @@
 from flask import Blueprint, Flask, redirect, url_for, render_template, request, session, flash
+import math
 
 bp = Blueprint('damage_calc', __name__)
 
@@ -65,19 +66,13 @@ weapon_damage_types = {
 
 
 def gs_to_bd(gear_score):
-    """Calculated true base damage multiplier given a weapon's gear score"""
+    """Calculated true base damage multiplier given a weapon's gear score"""\
     
-    adj_gear_score = gear_score - (gear_score % 5)
-    if (adj_gear_score < 200):
-      return 0.24 * ((adj_gear_score - 100) / 100) + 1
-    elif (adj_gear_score < 300):
-      return 0.31439 * ((adj_gear_score - 200) / 100) + 1.24
-    elif (adj_gear_score < 400):
-      return 0.38761 * ((adj_gear_score - 300) / 100) + 1.55439
-    elif (adj_gear_score < 500):
-      return 0.48675 * ((adj_gear_score - 400) / 100) + 1.942
+    stepped_gs = math.floor(gear_score / 5) * 5
+    if stepped_gs <= 500:
+      return (1 + 0.0112) ** ((stepped_gs - 100) / 5)
     else:
-      return 0.39365 * ((adj_gear_score - 500) / 100) + 2.42874
+      return 2.43761 * ((1 + 0.66667*0.0112) ** ((stepped_gs - 500) / 5))
 
 
 def calc_con(attribute_val):
@@ -184,7 +179,7 @@ def weapon_damage(weapon, char_info):
 
     level_damage = ((char_level - 1) * 0.025 + 1) * base_damage
 
-    return round(attribute_damage + level_damage)
+    return math.floor(attribute_damage + level_damage)
 
 
 def validate_num(value, minval, maxval):
@@ -260,26 +255,30 @@ def calc_weapons(weapon1, weapon2, char_info):
     weapon1['true_base_damage'] = true_base_damages[weapon1['id']]
     weapon2['true_base_damage'] = true_base_damages[weapon2['id']]
 
-    weapon1['base_damage'] = round(gs_to_bd(weapon1['gear_score']) * weapon1['true_base_damage'])
-    weapon2['base_damage'] = round(gs_to_bd(weapon2['gear_score']) * weapon2['true_base_damage'])
+    weapon1['base_damage'] = gs_to_bd(weapon1['gear_score']) * weapon1['true_base_damage']
+    weapon2['base_damage'] = gs_to_bd(weapon2['gear_score']) * weapon2['true_base_damage']
     
     weapon1['weapon_damage'] = weapon_damage(weapon1, char_info)
     weapon2['weapon_damage'] = weapon_damage(weapon2, char_info)
 
     if weapon1['gem_type'] != "None":
-        normal_damage, elemental_damage  = gem_damage(weapon1, char_info)
-        weapon1['normal_damage'] = round(normal_damage)
-        weapon1['elemental_damage'] = round(elemental_damage)
-        weapon1['weapon_damage'] = round(normal_damage + elemental_damage)
+        normal_damage, elemental_damage = gem_damage(weapon1, char_info)
+        weapon1['normal_damage'] = math.floor(normal_damage)
+        weapon1['elemental_damage'] = math.floor(elemental_damage)
+        weapon1['weapon_damage'] = math.floor(normal_damage + elemental_damage)
     else:
-        weapon1['normal_damage'] = weapon_damage(weapon1, char_info)
+        weapon1['normal_damage'] = weapon1['weapon_damage']
     if weapon2['gem_type'] != "None":
-        normal_damage, elemental_damage  = gem_damage(weapon2, char_info)
-        weapon2['normal_damage'] = round(normal_damage)
-        weapon2['elemental_damage'] = round(elemental_damage)
-        weapon2['weapon_damage'] = round(normal_damage + elemental_damage)
+        normal_damage, elemental_damage = gem_damage(weapon2, char_info)
+        weapon2['normal_damage'] = math.floor(normal_damage)
+        weapon2['elemental_damage'] = math.floor(elemental_damage)
+        weapon2['weapon_damage'] = math.floor(normal_damage + elemental_damage)
     else:
-        weapon2['normal_damage'] = weapon_damage(weapon2, char_info)
+        weapon2['normal_damage'] = weapon2['weapon_damage']
+
+    # Done calculating, make them clean
+    weapon1['base_damage'] = math.floor(weapon1['base_damage'])
+    weapon2['base_damage'] = math.floor(weapon2['base_damage'])
 
     
 

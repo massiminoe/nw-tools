@@ -533,6 +533,11 @@
                   • New World Database by Xyo (<a href="https://nwdb.info" target="_blank">Website</a>)
                 </th>
               </tr>
+              <tr>
+                <th>
+                  • New World Wiki (<a href="https://newworld.fandom.com/wiki/New_World_Wiki" target="_blank">Website</a>)
+                </th>
+              </tr>
             </p>
           </tobdy>
         </table>
@@ -594,30 +599,25 @@
 <script>
   function update_bd1(true_base_damage) {
     var gear_score = document.getElementById('weapon1_gs_slider').value;
-    var newBD = Math.round(base_scaling(gear_score) * true_base_damage);
+    var newBD = Math.floor(base_scaling(gear_score) * true_base_damage);
     document.getElementById('weapon1_damage').value = newBD;
   }
   function update_bd2(true_base_damage) {
     var gear_score = document.getElementById('weapon2_gs_slider').value;
-    var newBD = Math.round(base_scaling(gear_score) * true_base_damage);
+    var newBD = Math.floor(base_scaling(gear_score) * true_base_damage);
     document.getElementById('weapon2_damage').value = newBD;
   }
 </script>
 
 <script>
   function base_scaling(gear_score) {
-    var adj_gear_score = gear_score - (gear_score % 5);
-    if (adj_gear_score < 200) {
-      return 0.24 * ((adj_gear_score - 100) / 100) + 1
-    } else if (adj_gear_score < 300) {
-      return 0.31439 * ((adj_gear_score - 200) / 100) + 1.24
-    } else if (adj_gear_score < 400) {
-      return 0.38761 * ((adj_gear_score - 300) / 100) + 1.55439
-    } else if (adj_gear_score < 500) {
-      return 0.48675 * ((adj_gear_score - 400) / 100) + 1.942
+    var stepped_gs = Math.floor(gear_score / 5) * 5
+    if (stepped_gs <= 500) {
+      return Math.pow(1 + 0.0112, (stepped_gs - 100) / 5)
     } else {
-      return 0.39365 * ((adj_gear_score - 500) / 100) + 2.42874
+      return 2.43761 * Math.pow(1 + 0.66667*0.0112, (stepped_gs - 500) / 5)
     }
   }
 </script>
+
 {% endblock %}
