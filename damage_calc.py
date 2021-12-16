@@ -310,7 +310,6 @@ def damage_calc():
         calc_weapons(weapon1, weapon2, char_info)
 
         save_data(char_info, weapon1, weapon2)  # Save to db
-        print(damage_calculation.query.all())
 
         return render_template("damage_calc.html", char_info=char_info, weapon1=weapon1, weapon2=weapon2, game_version=game_version)
     else:
