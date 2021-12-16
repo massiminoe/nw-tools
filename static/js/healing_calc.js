@@ -38,6 +38,9 @@ window.onload = function () {
         if (protectors_strength.checked) {
             outgoing_mod += 0.1;
         }
+        if (focus >= 150) {
+            outgoing_mod += 0.2;
+        }
         final_healing = healing_power * outgoing_mod;
 
         divine_embrace_outgoing.innerHTML = Math.round(final_healing * 1.2);
