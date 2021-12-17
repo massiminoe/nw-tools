@@ -5,10 +5,7 @@
 <!-- How To -->
 <section class="pt-3">
   <div class="container text-light text-center">
-    <h2 style="text-align:center;">
-      Damage Calculator
-      </span>
-    </h2>
+    <h2 style="text-align:center;">Damage Calculator</h2>
   </div>
 </section>
 
@@ -580,6 +577,9 @@
   }, false);
 
   gs1.addEventListener('change', function () {
+    if (isNaN(gs1.value)) {
+            gs1.value = 500;
+        }
     if (gs1.value > 600) {
       gs1.value = 600;
     } else if (gs1.value < 100) {

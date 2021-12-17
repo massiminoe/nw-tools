@@ -1,10 +1,11 @@
-/*
-body::before {
-    display: block;
-    content: '';
-    height: 60px;
+:root {
+  --legendary: 247, 162, 45;
+  --epic: rgb(255, 22, 247);
+  --rare: rgb(0, 203, 233);
+  --uncommon: rgb(7, 192, 47);
+  --common: rgb(200, 200, 200);
+  --healing: 74, 190, 74;
 }
-*/
 
 img {
     max-width: 100%;
@@ -53,4 +54,82 @@ div.card.wd {
 
 .tooltip.bs-tooltip-end .tooltip-arrow::before {
   border-right-color: #333;
+}
+
+.tooltip-inner.tooltip-perk {
+  background: red;
+  max-width: 100px;
+  /* If max-width does not work, try using width instead */
+  width: 100px; 
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.legendary-background {
+  background-image: url("/static/images/cloudy4.png");
+  background-size: cover;
+  border: 1px solid rgb(var(--legendary));
+}
+
+.skill-circle {
+  background: black;
+  background-size: cover;
+  border-radius: 50%;
+  border: 3px solid white;
+  width: 100px;
+  height: 100px;
+  opacity: 0.3;
+}
+
+.ability-circle {
+  background: black;
+  background-size: cover;
+  border-radius: 50%;
+  border: 3px solid white;
+  width: 100px;
+  height: 100px;
+}
+
+:checked+label {
+  opacity: 1;
+  border: 3px solid lightskyblue;
+}
+
+.stacks {
+  background: none;
+  border: none;
+  color: white;
+}
+
+.stacks:focus {
+  outline: none;
+}
+
+input[type="checkbox"]:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.healing {
+  color: rgb(var(--healing));
+}
+
+.gem {
+  background: black;
+  border-radius: 50%;
+  border: 3px solid rgb(105, 96, 66);
+}
+
+.gem_big {
+  scale: 0.5;
+  position: absolute;
+  left: 300px;
+  top: 155px;
+  z-index: 1;
 }
