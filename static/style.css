@@ -119,3 +119,17 @@ input[type="checkbox"]:focus {
 .healing {
   color: rgb(var(--healing));
 }
+
+.gem {
+  background: black;
+  border-radius: 50%;
+  border: 3px solid rgb(105, 96, 66);
+}
+
+.gem_big {
+  scale: 0.5;
+  position: absolute;
+  left: 300px;
+  top: 155px;
+  z-index: 1;
+}

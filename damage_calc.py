@@ -6,7 +6,7 @@ import math
 bp = Blueprint('damage_calc', __name__)
 
 # Constants
-game_version = "1.1.1"
+game_version = "1.2"
 # Readable names
 weapon_name_dict = {
     "greataxe": "Great Axe",

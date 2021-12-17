@@ -3,16 +3,18 @@ window.onload = function () {
     let slider2 = document.getElementById("ring_gs_slider"), gs2 = document.getElementById("ring_gs");
     let blessed_check = document.getElementById("blessed_check"), blessed_text=document.getElementById("blessed_text"), blessed_icon=document.getElementById("blessed_icon");
     let sacred_check = document.getElementById("sacred_check"), sacred_text=document.getElementById("sacred_text"), sacred_icon=document.getElementById("sacred_icon");
+    let divine_blessing = document.getElementById("divine_blessing");
     let intensify_stacks = document.getElementById("intensify_stacks");
     let intensify = document.getElementById("intensify"), bend_light = document.getElementById("bend_light"), protectors_strength = document.getElementById("protectors_strength");
     let divine_embrace_outgoing = document.getElementById("divine_embrace_outgoing"), sacred_ground_outgoing = document.getElementById("sacred_ground_outgoing"), splash_of_light_outgoing = document.getElementById("splash_of_light_outgoing");
     let orb_of_protection_outgoing = document.getElementById("orb_of_protection_outgoing"), lights_embrace_outgoing = document.getElementById("lights_embrace_outgoing"), beacon_outgoing = document.getElementById("beacon_outgoing");
     let char_level = document.getElementById("level"), focus_input = document.getElementById("focus"), equip_load = document.getElementById("equip_load");
+    let lifestaff_gem = document.getElementById("lifestaff_gem");
 
     // Constants
     var true_base_damage = 52;
     // Variables
-    var sacred = 0.074, blessed = 0.17, focus=5, level=60, life_staff_gs = 500, armor_bonus = 0;
+    var sacred = 0.074, blessed = 0.17, focus=5, level=60, life_staff_gs = 500, armor_bonus = 0, gem_bonus = 0;
     calc_outgoing();
 
     function calc_outgoing() {
@@ -23,6 +25,7 @@ window.onload = function () {
 
         var outgoing_mod = 1;
         outgoing_mod += armor_bonus;
+        outgoing_mod += gem_bonus;
         if (blessed_check.checked) {
             outgoing_mod += blessed;
         }
@@ -38,6 +41,9 @@ window.onload = function () {
         if (protectors_strength.checked) {
             outgoing_mod += 0.1;
         }
+        if (divine_blessing.checked) {
+            outgoing_mod += 0.3;
+        }
         if (focus >= 150) {
             outgoing_mod += 0.2;
         }
@@ -52,6 +58,22 @@ window.onload = function () {
     }
 
     // Life Staff
+    lifestaff_gem.addEventListener('change', function () {
+        var gem = lifestaff_gem.value;
+        if (gem === "none_gem") {
+            gem_bonus = 0;
+        } else if (gem === "diamond_t2") {
+            gem_bonus = 0.06;
+        } else if (gem === "diamond_t3") {
+            gem_bonus = 0.09;
+        } else if (gem === "diamond_t4") {
+            gem_bonus = 0.12;
+        } else if (gem === "diamond_t5") {
+            gem_bonus = 0.15;
+        }
+        calc_outgoing();
+    }, false);
+
     blessed_check.addEventListener('change', function() {
         if (this.checked) {
             blessed_text.style.color = "#f8f9fa";
@@ -134,6 +156,9 @@ window.onload = function () {
         calc_outgoing();
     });
     protectors_strength.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    divine_blessing.addEventListener('change', function () {
         calc_outgoing();
     });
     // Intensify
@@ -243,8 +268,24 @@ window.onload = function () {
         allowHTML: true,
         hideOnClick: false,
     });
+    tippy('#gem_type_tooltip', {
+        content: "<h4><strong>Diamond (Rally): </strong></h4><p><i>+X% damage and outgoing healing while at full health.</i></p>T2: +6%<br>T3: +9%<br>T4: +12%<br>T5: +15%",
+        allowHTML: true,
+    });
     tippy('#equip_load_tooltip', {
         content: "<h4><strong>Healing Bonus:</strong></h4>Heavy: None<br>Medium: 15%<br>Light: 30%",
+        allowHTML: true,
+    });
+    tippy('#divine_blessing_label', {
+        content: "<h4><strong>Divine Blessing</strong></h4>When you heal an ally below 50% health, they are healed for 30% more.",
+        allowHTML: true,
+    });
+    tippy('#intensify_stacks', {
+        content: "Intensify stacks",
+        allowHTML: true,
+    });
+    tippy('#outgoing_tooltip', {
+        content: "<strong><i>Outgoing healing</i></strong> is the amount you heal for before considering any buffs/debuffs that the recipient may have (e.g. Divine)",
         allowHTML: true,
     });
 }
