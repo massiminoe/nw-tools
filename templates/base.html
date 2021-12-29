@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C15PSCCGDB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C15PSCCGDB');
+  </script>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="Damage calculator for New World. Try out item, stat, and mastery combinations and see how much you'd be hitting for.">
@@ -21,12 +32,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TZPBBXB');</script>
-
   <title>New World Tools</title>
 
 </head>
@@ -34,7 +39,7 @@
 <body style="background-color: rgb(7, 7, 7)">
 
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZPBBXB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        
+
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-dark py-2" style="background-color: #2d3844;border-bottom: 1px solid #495867;">
@@ -43,7 +48,7 @@
                 <h4>
                     <img src="/static/nwtk-cropped-white-nt.svg" alt="" width="40" height="40" viewBox="0 0 40 40"><span class="px-3">New World Tools</span>
                 </h4>
-                
+
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -65,7 +70,7 @@
             </div>
         </div>
     </nav>
-        
+
     {% block content %}
     {% endblock %}
 

@@ -2,6 +2,16 @@
 <html lang="en">
 <head>
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C15PSCCGDB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C15PSCCGDB');
+  </script>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,15 +35,13 @@
   <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
   <script src="{{url_for('static', filename='/js/healing_calc.js')}}" type="text/javascript"></script>
 
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TZPBBXB');</script>
-
   <title>New World Tools</title>
 
 </head>
 
 <body style="background-color: rgb(7, 7, 7)">
 
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZPBBXB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>        
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZPBBXB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-dark py-2" style="background-color: #2d3844;border-bottom: 1px solid #495867;">
@@ -42,7 +50,7 @@
                 <h4>
                     <img src="/static/nwtk-cropped-white-nt.svg" alt="" width="40" height="40" viewBox="0 0 40 40"><span class="px-3">New World Tools</span>
                 </h4>
-                
+
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
@@ -64,7 +72,7 @@
             </div>
         </div>
     </nav>
-        
+
     <div class="container" style="background-color: rgb(20, 20, 20);">
 
         <!-- How To -->
@@ -73,7 +81,7 @@
             <h2 style="text-align:center;">Healing Calculator</h2>
           </div>
         </section>
-        
+
         <!-- Forms -->
         <section class="py-3">
           <div class="container">
@@ -97,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="row pt-2 pb-2"></div>
 
                 <div class="card bg-dark text-light" style="border: 1px solid #495867;">
@@ -116,7 +124,7 @@
                 </div>
 
                 <div class="row pt-2 pb-2"></div>
-        
+
                 <!-- Ring -->
                 <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                     <div class="card-body">
@@ -151,7 +159,7 @@
                                     <label for="sacred_check">
                                         <h4>
                                             <img src="/static/images/sacred.png" style="max-width: 19%;height: auto;" id="sacred_icon" alt="">
-                                          
+
                                           <span class="px-2 pt-2" id="sacred_text">Sacred: 7.4%</span>
                                         </h4>
                                     </label>
@@ -161,7 +169,7 @@
 
                     </div>
                 </div>
-              
+
               </div>
               <!-- Life Staff -->
               <div class="col-lg-9">
@@ -172,7 +180,7 @@
                             <h3 class="card-title text-center pb-2 border-bottom">
                                 Life Staff
                             </h3>
-        
+
                             <img src='/static/images/lifestaff.png' class="legendary-backgroun" alt="">
 
                             <!-- Gem -->
@@ -210,7 +218,7 @@
                                       </select>
                                 </div>
                             </div>
-        
+
                             <div class="row pb-2">
                                 <div class="col-md-8 px-3 pt-1 text-left">
                                   <div class="row px-2">
@@ -255,11 +263,11 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                         </div>
                     </div>
                   </div>
-                            
+
                   <div class="col-lg-6">
                     <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                         <div class="card-body">
@@ -337,7 +345,7 @@
                   </div>
                 </div>
               </div>
-        
+
           </div>
         </form>
         </section>
@@ -348,7 +356,7 @@
               <h2 class="text-center pb-3">
                 How Is This Calculated?
               </h2>
-          
+
               <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                 <div class="card-body">
                     <div class="row">
@@ -403,16 +411,16 @@
                                     </tbody>
                                   </table>
                             </div>
-                            
+
                           </div>
                         </div>
                       </div>
-          
+
                 </div>
               </div>
             </div>
           </section>
-        
+
     </div>
 
     <!-- Footer -->
