@@ -6,8 +6,10 @@ window.onload = function () {
     let divine_blessing = document.getElementById("divine_blessing");
     let intensify_stacks = document.getElementById("intensify_stacks");
     let intensify = document.getElementById("intensify"), bend_light = document.getElementById("bend_light"), protectors_strength = document.getElementById("protectors_strength");
+    let sg_blessed_check = document.getElementById("sg_blessed_check");
     let divine_embrace_outgoing = document.getElementById("divine_embrace_outgoing"), sacred_ground_outgoing = document.getElementById("sacred_ground_outgoing"), splash_of_light_outgoing = document.getElementById("splash_of_light_outgoing");
     let orb_of_protection_outgoing = document.getElementById("orb_of_protection_outgoing"), lights_embrace_outgoing = document.getElementById("lights_embrace_outgoing"), beacon_outgoing = document.getElementById("beacon_outgoing");
+    let recovery_outgoing = document.getElementById("recovery_outgoing"), light_attack_outgoing = document.getElementById("light_attack_outgoing");
     let char_level = document.getElementById("level"), focus_input = document.getElementById("focus"), equip_load = document.getElementById("equip_load");
     let lifestaff_gem = document.getElementById("lifestaff_gem");
 
@@ -49,10 +51,16 @@ window.onload = function () {
         }
         final_healing = healing_power * outgoing_mod;
 
+        light_attack_outgoing.innerHTML = Math.round(final_healing * 0.16);
         divine_embrace_outgoing.innerHTML = Math.round(final_healing * 1.2);
-        sacred_ground_outgoing.innerHTML = Math.round(final_healing * 0.16);
+        if (sg_blessed_check.checked) {
+            sacred_ground_outgoing.innerHTML = Math.round(final_healing * 0.16 * 1.5);
+        } else {
+            sacred_ground_outgoing.innerHTML = Math.round(final_healing * 0.16);
+        }
         splash_of_light_outgoing.innerHTML = Math.round(final_healing * 0.6);
         orb_of_protection_outgoing.innerHTML = Math.round(final_healing * 0.1);
+        recovery_outgoing.innerHTML = Math.round(final_healing * 0.06);
         lights_embrace_outgoing.innerHTML = Math.round(final_healing * 0.8);
         beacon_outgoing.innerHTML = Math.round(final_healing * 0.16);
     }
@@ -82,6 +90,10 @@ window.onload = function () {
             blessed_text.style.color = "gray";
             blessed_icon.style.opacity = 0.5;
         }
+        calc_outgoing();
+    });
+
+    sg_blessed_check.addEventListener('change', function() {
         calc_outgoing();
     });
 
@@ -238,6 +250,11 @@ window.onload = function () {
         allowHTML: true,
         hideOnClick: false,
     });
+    tippy('#light_attack', {
+        content: "<h4><strong>Blissful Touch</strong></h4><p>Light attacks now heal for 16% weapon damage when passing through an ally.</p>",
+        allowHTML: true,
+        hideOnClick: false,
+    });
     tippy('#divine_embrace', {
         content: "<h4><strong>Divine Embrace</strong></h4><p>Heal target for 120% weapon damage.</p>Costs 25 Mana.<br>Cooldown: 6s",
         allowHTML: true,
@@ -267,6 +284,10 @@ window.onload = function () {
         content: "<h4><strong>Beacon</strong></h4><p>Shoot out a projectile that deals 146% weapon damage to enemies, attaches to its target and heals all nearby allies for 16% weapon damage each second for 10s.</p>Costs 16 Mana.<br>Cooldown: 35s",
         allowHTML: true,
         hideOnClick: false,
+    });
+    tippy('#sg_blessed', {
+        content: "<h4><strong>Blessed</strong></h4><p>While allies are in Sacred Ground, they are healed for 50% more from all healing.</p>",
+        allowHTML: true,
     });
     tippy('#gem_type_tooltip', {
         content: "<h4><strong>Diamond (Rally): </strong></h4><p><i>+X% damage and outgoing healing while at full health.</i></p>T2: +6%<br>T3: +9%<br>T4: +12%<br>T5: +15%",

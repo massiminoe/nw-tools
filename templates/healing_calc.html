@@ -90,17 +90,17 @@
               <div class="col-lg-3">
                 <div class="card bg-dark text-light" style="background-color: rgb(58, 48, 44);border: 1px solid #495867;">
                     <div class="card-body">
-                        <h3 class="card-title text-center border-bottom pb-2">
+                        <h3 class="card-title text-center border-bottom pb-2" style="text-shadow: 3px 3px black;">
                             Character Info
                         </h3>
                         <div class="row">
                             <label for="focus" class="col-md-7 col-form-label"><h5>Focus:</h5></label>
                             <div class="col-md-5">
-                                <input type="text" name="focus" class="form-control" id="focus" value=5>
+                                <input type="number" name="focus" class="form-control" id="focus" value=5>
                             </div>
                             <label for="level" class="col-md-7 col-form-label"><h5>Level:</h5></label>
                             <div class="col-md-5">
-                                <input type="text" name="level" class="form-control" id="level" value=60>
+                                <input type="number" name="level" class="form-control" id="level" value=60>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
 
                 <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                     <div class="card-body">
-                        <div class="h3 text-center border-bottom pb-2">
+                        <div class="h3 text-center border-bottom pb-2" style="text-shadow: 3px 3px black;">
                             Equip Load<i class="px-2 bi-question-circle-fill" id="equip_load_tooltip"></i>
                         </div>
                         <div class="row px-3">
@@ -128,7 +128,7 @@
                 <!-- Ring -->
                 <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                     <div class="card-body">
-                        <div class="h3 text-center border-bottom pb-2">
+                        <div class="h3 text-center border-bottom pb-2" style="text-shadow: 3px 3px black;">
                             Sacred Ring
                         </div>
                         <img src="/static/images/ruby_ring.png" class="center d-md-block" alt="">
@@ -143,7 +143,7 @@
                               </h4>
                             </div>
                             <div class="col-md-5 pt-3">
-                              <input type="text" name="gs" class="form-control" id="ring_gs" value=500 onchange="document.getElementById('ring_gs_slider').value = this.value;">
+                              <input type="number" name="gs" class="form-control" id="ring_gs" value=500 onchange="document.getElementById('ring_gs_slider').value = this.value;">
                             </div>
                         </div>
                         <div class="row px-4 pb-3 pt-2">
@@ -177,7 +177,7 @@
                   <div class="col-lg-6">
                     <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                         <div class="card-body">
-                            <h3 class="card-title text-center pb-2 border-bottom">
+                            <h3 class="card-title text-center pb-2 border-bottom" style="text-shadow: 3px 3px black;">
                                 Life Staff
                             </h3>
 
@@ -193,7 +193,7 @@
                                   </h4>
                                 </div>
                                 <div class="col-md-3">
-                                  <input type="text" name="gs" class="form-control" id="weapon_gs" value=500 onchange="document.getElementById('weapon_gs_slider').value = this.value;">
+                                  <input type="number" name="gs" class="form-control" id="weapon_gs" value=500 onchange="document.getElementById('weapon_gs_slider').value = this.value;">
                                 </div>
                             </div>
                             <div class="row px-4 pb-3 pt-2">
@@ -276,6 +276,17 @@
                             </h3>
                             <div class="row pt-2">
                                 <div class="col-4">
+                                    <div style="background-image: url('/static/images/blissful_touch.webp');" id="light_attack" class="ability-circle" alt=""></div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="row"><h4><strong>Light Attack</strong></h4></div>
+                                    <div class="row">
+                                        <h5>Heals for: <span class="healing"><b id="light_attack_outgoing">1000</b><b>HP</b></span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-4">
                                     <div style="background-image: url('/static/images/divine_embrace.webp');" id="divine_embrace" class="ability-circle" alt=""></div>
                                 </div>
                                 <div class="col-8">
@@ -293,6 +304,7 @@
                                     <div class="row"><h4><strong>Sacred Ground</strong></h4></div>
                                     <div class="row">
                                         <h5>Heals for: <span class="healing"><b id="sacred_ground_outgoing">1000</b><b>HP/s</b></span> (12s)</h5>
+                                        <h5 id="sg_blessed">Blessed: <input class="form-check-input" type="checkbox" value="" id="sg_blessed_check" checked></h5>
                                     </div>
                                 </div>
                             </div>
@@ -315,6 +327,7 @@
                                     <div class="row"><h4><strong>Orb of Protection</strong></h4></div>
                                     <div class="row">
                                         <h5>Heals for: <span class="healing"><b id="orb_of_protection_outgoing">1000</b><b>HP</b></span></h5>
+                                        <h5>Recovery: <span class="healing"><b id="recovery_outgoing">1000</b><b>HP/s</b></span> (10s)</h5>
                                     </div>
                                 </div>
                             </div>
