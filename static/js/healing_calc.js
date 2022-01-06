@@ -6,7 +6,7 @@ window.onload = function () {
     let divine_blessing = document.getElementById("divine_blessing");
     let intensify_stacks = document.getElementById("intensify_stacks");
     let intensify = document.getElementById("intensify"), bend_light = document.getElementById("bend_light"), protectors_strength = document.getElementById("protectors_strength");
-    let sg_blessed_check = document.getElementById("sg_blessed_check");
+    let sg_blessed_check = document.getElementById("sg_blessed_check"), lights_embrace_buffs = document.getElementById("lights_embrace_buffs");
     let divine_embrace_outgoing = document.getElementById("divine_embrace_outgoing"), sacred_ground_outgoing = document.getElementById("sacred_ground_outgoing"), splash_of_light_outgoing = document.getElementById("splash_of_light_outgoing");
     let orb_of_protection_outgoing = document.getElementById("orb_of_protection_outgoing"), lights_embrace_outgoing = document.getElementById("lights_embrace_outgoing"), beacon_outgoing = document.getElementById("beacon_outgoing");
     let recovery_outgoing = document.getElementById("recovery_outgoing"), light_attack_outgoing = document.getElementById("light_attack_outgoing");
@@ -16,7 +16,7 @@ window.onload = function () {
     // Constants
     var true_base_damage = 52;
     // Variables
-    var sacred = 0.074, blessed = 0.17, focus=5, level=60, life_staff_gs = 500, armor_bonus = 0, gem_bonus = 0;
+    var sacred = 0.074, blessed = 0.17, focus=5, level=60, life_staff_gs = 500, armor_bonus = 0, gem_bonus = 0, target_buffs = 0;
     calc_outgoing();
 
     function calc_outgoing() {
@@ -61,7 +61,7 @@ window.onload = function () {
         splash_of_light_outgoing.innerHTML = Math.round(final_healing * 0.6);
         orb_of_protection_outgoing.innerHTML = Math.round(final_healing * 0.1);
         recovery_outgoing.innerHTML = Math.round(final_healing * 0.06);
-        lights_embrace_outgoing.innerHTML = Math.round(final_healing * 0.8);
+        lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.3 * target_buffs) * 0.8);
         beacon_outgoing.innerHTML = Math.round(final_healing * 0.16);
     }
 
@@ -101,6 +101,11 @@ window.onload = function () {
         gs1.value = slider1.value;
         life_staff_gs  = slider1.value;
         update_blessed(slider1.value);
+        calc_outgoing();
+    }, false);
+
+    lights_embrace_buffs.addEventListener('input', function () {
+        target_buffs = lights_embrace_buffs.value;
         calc_outgoing();
     }, false);
 
