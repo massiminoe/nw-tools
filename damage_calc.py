@@ -243,8 +243,8 @@ def get_weapons(form, weapon1, weapon2):
     weapon2['gem_type'] = form["weapon2_gem"]
 
     # Gear score
-    weapon1['gear_score'] = validate_num(form["weapon1_gs"], 100, 600)
-    weapon2['gear_score'] = validate_num(form["weapon2_gs"], 100, 600)
+    weapon1['gear_score'] = validate_num(form["weapon1_gs"], 100, 625)
+    weapon2['gear_score'] = validate_num(form["weapon2_gs"], 100, 625)
 
 
 def calc_weapons(weapon1, weapon2, char_info):
@@ -300,8 +300,8 @@ def save_data(char_info, weapon1, weapon2):
 def damage_calc():
 
     char_info = {"strength": 5, "dexterity": 5, "intelligence": 5, "focus": 5, "constitution": 5, "level": 60, "health": 6000}
-    weapon1 = {"id": "greataxe", "name": "Great Axe", "base_damage": 199, "weapon_damage": 493, "gem_type": "None", "true_base_damage": 82, "gear_score": 500, "damage_type": "Slash", "normal_damage": 493, "elemental_damage": 0}
-    weapon2 = {"id": "warhammer", "name": "War Hammer", "base_damage": 204, "weapon_damage": 505, "gem_type": "None", "true_base_damage": 84, "gear_score": 500, "damage_type": "Strike", "normal_damage": 505, "elemental_damage": 0}
+    weapon1 = {"id": "greataxe", "name": "Great Axe", "base_damage": 231, "weapon_damage": 574, "gem_type": "None", "true_base_damage": 82, "gear_score": 600, "damage_type": "Slash", "normal_damage": 574, "elemental_damage": 0}
+    weapon2 = {"id": "warhammer", "name": "War Hammer", "base_damage": 237, "weapon_damage": 588, "gem_type": "None", "true_base_damage": 84, "gear_score": 600, "damage_type": "Strike", "normal_damage": 588, "elemental_damage": 0}
     
     if request.method == "POST":
 

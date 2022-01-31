@@ -149,7 +149,7 @@
                       </div>
                     </div>
                     <div class="row px-4 pb-3 pt-2">
-                        <input type="range" class="form-range gs_slider" min="100" max="600" step="1" id="weapon1_gs_slider" value="{{weapon1['gear_score']}}" onchange="update_bd1({{weapon1['true_base_damage']}}, this.value);">
+                        <input type="range" class="form-range gs_slider" min="100" max="625" step="1" id="weapon1_gs_slider" value="{{weapon1['gear_score']}}" onchange="update_bd1({{weapon1['true_base_damage']}}, this.value);">
                     </div>
 
                     <div class="row">
@@ -306,7 +306,7 @@
                       </div>
                     </div>
                     <div class="row px-4 pb-3 pt-2">
-                        <input type="range" class="form-range gs_slider" min="100" max="600" step="1" id="weapon2_gs_slider" value="{{weapon2['gear_score']}}" onchange="update_bd2({{weapon2['true_base_damage']}}, this.value);">
+                        <input type="range" class="form-range gs_slider" min="100" max="625" step="1" id="weapon2_gs_slider" value="{{weapon2['gear_score']}}" onchange="update_bd2({{weapon2['true_base_damage']}}, this.value);">
                     </div>
 
                     <div class="row">
@@ -580,15 +580,15 @@
     if (isNaN(gs1.value)) {
             gs1.value = 500;
         }
-    if (gs1.value > 600) {
-      gs1.value = 600;
+    if (gs1.value > 625) {
+      gs1.value = 625;
     } else if (gs1.value < 100) {
       gs1.value = 100;
     }
   }, false);
   gs2.addEventListener('change', function () {
-    if (gs2.value > 600) {
-      gs2.value = 600;
+    if (gs2.value > 625) {
+      gs2.value = 625;
     } else if (gs2.value < 100) {
       gs2.value = 100;
     }

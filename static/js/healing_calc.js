@@ -16,7 +16,7 @@ window.onload = function () {
     // Constants
     var true_base_damage = 52;
     // Variables
-    var sacred = 0.074, blessed = 0.17, focus=5, level=60, life_staff_gs = 500, armor_bonus = 0, gem_bonus = 0, target_buffs = 0;
+    var sacred = 0.085, blessed = 0.2, focus=5, level=60, life_staff_gs = 600, armor_bonus = 0, gem_bonus = 0, target_buffs = 0;
     calc_outgoing();
 
     function calc_outgoing() {
@@ -113,8 +113,8 @@ window.onload = function () {
         if (isNaN(gs1.value)) {
             gs1.value = 500;
         }
-        if (gs1.value > 600) {
-        gs1.value = 600;
+        if (gs1.value > 625) {
+        gs1.value = 625;
         } else if (gs1.value < 100) {
         gs1.value = 100;
         }
@@ -152,8 +152,8 @@ window.onload = function () {
         if (isNaN(gs2.value)) {
             gs2.value = 500;
         }
-        if (gs2.value > 600) {
-        gs2.value = 600;
+        if (gs2.value > 625) {
+        gs2.value = 625;
         } else if (gs2.value < 100) {
         gs2.value = 100;
         }
