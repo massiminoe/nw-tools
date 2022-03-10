@@ -6,7 +6,7 @@ import math
 bp = Blueprint('damage_calc', __name__)
 
 # Constants
-game_version = "1.2"
+game_version = "1.3"
 # Readable names
 weapon_name_dict = {
     "greataxe": "Great Axe",
@@ -20,7 +20,8 @@ weapon_name_dict = {
     "firestaff": "Fire Staff",
     "icegauntlet": "Ice Gauntlet",
     "voidgauntlet": "Void Gauntlet",
-    "lifestaff": "Life Staff"
+    "lifestaff": "Life Staff",
+    "blunderbuss": "Blunderbuss"
 }
 # List of attributes (by index). If dual attribute, first is 90%, second is 65%
 weapon_attributes = {
@@ -35,7 +36,8 @@ weapon_attributes = {
     "firestaff": ['intelligence'],
     "icegauntlet": ['intelligence'],
     "voidgauntlet": ['intelligence', 'focus'],
-    "lifestaff": ['focus']
+    "lifestaff": ['focus'],
+    "blunderbuss": ['strength', 'intelligence']
 }
 true_base_damages = {
     "greataxe": 82,
@@ -49,7 +51,8 @@ true_base_damages = {
     "firestaff": 57,
     "icegauntlet": 56,
     "voidgauntlet": 54,
-    "lifestaff": 55
+    "lifestaff": 55,
+    "blunderbuss": 80
 }
 weapon_damage_types = {
     "greataxe": "Slash",
@@ -63,7 +66,8 @@ weapon_damage_types = {
     "firestaff": "Fire",
     "icegauntlet": "Ice",
     "voidgauntlet": "Void",
-    "lifestaff": "Nature"
+    "lifestaff": "Nature",
+    "blunderbuss": "Thrust"
 }
 
 
