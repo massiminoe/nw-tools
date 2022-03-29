@@ -52,7 +52,7 @@ true_base_damages = {
     "icegauntlet": 56,
     "voidgauntlet": 54,
     "lifestaff": 55,
-    "blunderbuss": 80
+    "blunderbuss": 75
 }
 weapon_damage_types = {
     "greataxe": "Slash",
@@ -305,7 +305,8 @@ def damage_calc():
 
     char_info = {"strength": 5, "dexterity": 5, "intelligence": 5, "focus": 5, "constitution": 5, "level": 60, "health": 6000}
     weapon1 = {"id": "greataxe", "name": "Great Axe", "base_damage": 231, "weapon_damage": 574, "gem_type": "None", "true_base_damage": 82, "gear_score": 600, "damage_type": "Slash", "normal_damage": 574, "elemental_damage": 0}
-    weapon2 = {"id": "warhammer", "name": "War Hammer", "base_damage": 237, "weapon_damage": 588, "gem_type": "None", "true_base_damage": 84, "gear_score": 600, "damage_type": "Strike", "normal_damage": 588, "elemental_damage": 0}
+    #weapon2 = {"id": "warhammer", "name": "War Hammer", "base_damage": 237, "weapon_damage": 588, "gem_type": "None", "true_base_damage": 84, "gear_score": 600, "damage_type": "Strike", "normal_damage": 588, "elemental_damage": 0}
+    weapon2 = {"id": "blunderbuss", "name": "Blunderbuss", "base_damage": 212, "weapon_damage": 525, "gem_type": "None", "true_base_damage": 75, "gear_score": 600, "damage_type": "Thrust", "normal_damage": 525, "elemental_damage": 0}
     
     if request.method == "POST":
 

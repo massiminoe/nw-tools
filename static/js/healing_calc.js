@@ -59,7 +59,7 @@ window.onload = function () {
             sacred_ground_outgoing.innerHTML = Math.round(final_healing * 0.16);
         }
         splash_of_light_outgoing.innerHTML = Math.round(final_healing * 0.6);
-        orb_of_protection_outgoing.innerHTML = Math.round(final_healing * 0.1);
+        orb_of_protection_outgoing.innerHTML = Math.round(final_healing * 0.08);
         recovery_outgoing.innerHTML = Math.round(final_healing * 0.06);
         lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.3 * target_buffs) * 0.8);
         beacon_outgoing.innerHTML = Math.round(final_healing * 0.16);
@@ -276,7 +276,7 @@ window.onload = function () {
         hideOnClick: false,
     });
     tippy('#orb_of_protection', {
-        content: "<h4><strong>Orb of Protection</strong></h4><p>Shoot out a light projectile that grants 10% fortify for 20s, heals an ally for 10% of weapon damage, and deals 146% weapon damage when it hits an enemy. (Fortify reduces incoming damages.)</p>Costs 16 Mana.<br>Cooldown: 10s",
+        content: "<h4><strong>Orb of Protection</strong></h4><p>Shoot out a light projectile that grants 10% fortify for 20s, heals an ally for 8% of weapon damage, and deals 146% weapon damage when it hits an enemy. (Fortify reduces incoming damages.)</p>Costs 16 Mana.<br>Cooldown: 10s",
         allowHTML: true,
         hideOnClick: false,
     });
@@ -291,7 +291,7 @@ window.onload = function () {
         hideOnClick: false,
     });
     tippy('#sg_blessed', {
-        content: "<h4><strong>Blessed</strong></h4><p>While allies are in Sacred Ground, they are healed for 50% more from all healing.</p>",
+        content: "<h4><strong>Anointed</strong></h4><p>While allies are in Sacred Ground, they are healed for 50% more from all healing.</p>",
         allowHTML: true,
     });
     tippy('#gem_type_tooltip', {
