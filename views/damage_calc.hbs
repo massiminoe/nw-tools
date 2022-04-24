@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C15PSCCGDB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-C15PSCCGDB');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Damage calculator for New World. Try out item, stat, and mastery combinations and see how much you'd be hitting for.">
+  <meta property="og:description" content="Damage calculator for New World. Try out item, stat, and mastery combinations and see how much you'd be hitting for.">
+  <meta property="og:title" content="New World Damage Calculator">
+  <meta property="og:image" content="https://massimino.pythonanywhere.com/static/images/healing_calc1.png">
+  <meta property="og:url" content="https://www.nw-tools.info/" />
+  <meta property="twitter:description" content="Damage calculator for New World. Try out item, stat, and mastery combinations and see how much you'd be hitting for.">
+  <meta property="twitter:title" content="New World Damage Calculator">
+  <meta property="twitter:image" content="https://massimino.pythonanywhere.com/static/images/damage_calc1.png">
+  <meta property="twitter:url" content="https://www.nw-tools.info/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="images/nwtk-cropped-white-nt.svg">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="/js/damage_calc.js" type="text/javascript"></script>
+
+  <title>New World Tools</title>
+
+</head>
+
+<body style="background-color: rgb(7, 7, 7)">
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZPBBXB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark py-2" style="background-color: #2d3844;border-bottom: 1px solid #495867;">
+        <div class="container">
+            <a href="/" class="navbar-brand pt-3" style="color: rgb(218, 218, 218);">
+                <h4>
+                    <img src="images/nwtk-cropped-white-nt.svg" alt="" width="40" height="40" viewBox="0 0 40 40"><span class="px-3">New World Tools</span>
+                </h4>
+
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item px-2" style="border-right: 2px solid #495867;">
+                        <a href="/damage-calc" class="nav-link" style="color: slategray;">Damage Calculator</a>
+                        <div class="notification-dc">New</div>
+                    </li>
+                    <li class="nav-item px-2" style="border-right: 2px solid #495867;">
+                        <a href="/healing-calc" class="nav-link" style="color: slategray;">Healing Calculator</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a href="#credits" class="nav-link" style="color: slategray;">Credits</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="background-color: rgb(20, 20, 20);">
+
+    <!-- How To -->
+    <section class="pt-3">
+    <div class="container text-light text-center">
+        <h2 style="text-align:center;">Damage Calculator<span data-toggle="tooltip" title="Calculations are now automatic - no more submit button!"><i class="px-2 bi-question-circle-fill" style="color:var(--legendary)"></i></span></h2>
+        
+    </div>
+    </section>
+
+    <!-- Forms -->
+    <section class="py-3">
+    <div class="container">
+        <div class="row g-4">
+        <!-- Attributes Column -->
+        <div class="col-lg-3">
+            <div class="card bg-dark text-light" style="background-color: rgb(58, 48, 44);border: 1px solid #495867;">
+                <div class="card-body">
+                    <h3 class="card-title text-center border-bottom pb-2">
+                        Attributes
+                    </h3>
+                    <p class="card-text">
+                    <!-- Forms -->
+                    <div class="row mb-2">
+                        <label for="strength" class="col-md-6 col-form-label"><h5>STR:</h5></label>
+                        <div class="col-md-6">
+                        <input type="number" name="strength" class="form-control" id="strength" min="5" max="600" value=5>
+                        </div>
+                        <label for="dexterity" class="col-md-6 col-form-label"><h5>DEX:</h5></label>
+                        <div class="col-md-6">
+                        <input type="number" name="dexterity" class="form-control" id="dexterity" min="5" max="600" value=5>
+                        </div>
+                        <label for="intelligence" class="col-md-6 col-form-label"><h5>INT:</h5></label>
+                        <div class="col-md-6">
+                        <input type="number" name="intelligence" class="form-control" id="intelligence" min="5" max="600" value=5>
+                        </div>
+                        <label for="focus" class="col-md-6 col-form-label"><h5>FOC:</h5></label>
+                        <div class="col-md-6">
+                        <input type="number" name="focus" class="form-control" id="focus" min="5" max="600" value=5>
+                        </div>
+                        <label for="constitution" class="col-md-6 col-form-label"><h5>CON:</h5></label>
+                        <div class="col-md-6">
+                        <input type="number" name="constitution" class="form-control" id="constitution" min="5" max="600" value=5>
+                        </div> 
+
+                        <div class="container">
+                        <div class="border-bottom pt-4 pb-3"></div>
+                        </div>
+
+                        <label for="level" class="col-md-8 col-form-label pt-3"><h5 class="pt-1">Character Level:</h5></label>
+                        <div class="col-md-4 pt-3">
+                        <input type="number" name="level" class="form-control" id="level" value=60 min="1" max="60">
+                        </div> 
+                        <div class="container pt-2"></div>
+                        <label for="constitution" class="col-md-6 col-form-label">
+                        <h5>Health:
+                        </h5>
+                        </label>
+                        <div class="col-md-6">
+                        <input type="text" name="health" class="form-control text-center" id="health" value=6789 readonly>
+                        </div> 
+
+                        <div class="container">
+                        <div class="border-bottom pt-3"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="row pt-2 pb-2"></div>
+
+            <!-- Submit -->
+            <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                <div class="card-body text-center">
+                    <button class="btn btn-danger btn-lg px-5" id="reset_button">  Reset  </button>
+                </div>
+            </div>
+        
+        </div>
+        <!-- Weapons card -->
+        <div class="col-lg-9">
+            <div class="row">
+            <div class="col-lg-6">
+                <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                    <div class="card-body">
+                    <h3 class="card-title text-center border-bottom pb-2">
+                        Weapon 1
+                    </h3>
+                        <div class="row">
+                        <div class="col pb-4">
+                            <select class="form-select" name="weapon1_name" id="weapon1_name">
+                                <option hidden value="greataxe">Great Axe</option>
+                                <option value="greataxe">Great Axe</option>
+                                <option value="warhammer">War Hammer</option>
+                                <option value="hatchet">Hatchet</option>
+                                <option value="sword">Sword</option>
+                                <option value="spear">Spear</option>
+                                <option value="bow">Bow</option>
+                                <option value="musket">Musket</option>
+                                <option value="rapier">Rapier</option>
+                                <option value="firestaff">Fire Staff</option>
+                                <option value="icegauntlet">Ice Gauntlet</option>
+                                <option value="voidgauntlet">Void Gauntlet</option>
+                                <option value="blunderbuss">Blunderbuss</option>
+                            </select>
+                        </div>
+                        </div>
+                        <h3 class="card-title text-center text-warning" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                        <span style="text-shadow: 3px 3px black;" id="weapon1_display_name">
+                            Great Axe
+                        </span>
+                        </h3>
+                        <img id="weapon1_img" src="/images/greataxe.png" alt="">
+
+                        <!-- Weapon Stats -->
+                        <!-- GS -->
+                        <div class="row">
+                        <div class="col-md-9 px-4">
+                            <h4 class="card-title text-left pt-1">
+                            <b>
+                                Gear Score:
+                            </b>
+                            </h4>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" name="weapon1_gs" class="form-control" id="weapon1_gs" value=600 min="100" max="625">
+                        </div>
+                        </div>
+                        <div class="row px-4 pb-3 pt-2">
+                            <input type="range" class="form-range gs_slider" min="100" max="625" step="1" id="weapon1_gs_slider" value=600>
+                        </div>
+
+                        <div class="row">
+                        <div class="col-md-7 px-4">
+                            <h5 class="card-title text-left pt-1">
+                            Gem Type:
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-select" name="weapon1_gem" id="weapon1_gem">
+                            <option hidden value="None">None</option>
+                            <option value="None">None</option>
+                            <option value="T2 Focus">T2 Focus</option>
+                            <option value="T3 Focus">T3 Focus</option>
+                            <option value="T4 Focus">T4 Focus</option>
+                            <option value="T5 Focus">T5 Focus</option>
+                            <option value="T2 Intelligence">T2 Intelligence</option>
+                            <option value="T3 Intelligence">T3 Intelligence</option>
+                            <option value="T4 Intelligence">T4 Intelligence</option>
+                            <option value="T5 Intelligence">T5 Intelligence</option>
+                            </select>
+                        </div>
+                        </div>
+
+                        <div class="row pt-2">
+                        <div class="col-md-9 px-4">
+                            <h5 class="card-title text-left pt-1">
+                            Base Damage:
+
+                            <!-- Tooltip! -->
+                            <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Base damage refers to this number:</p><img src=&quot;images/greataxe_base_damage_crop.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>If your weapon has two damage types, this is added together.</p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                            </h5>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="weapon1_damage" class="form-control text-center" id="weapon1_damage" value=231 readonly>
+                        </div>
+                        </div>
+
+                        <!-- Weapon Damage -->
+                        <div class="pt-3"> </div>
+                        <div class="row border-top pt-3"></div>
+
+                        <div class="row pb-2">
+                        <div class="col-md-8 px-3 pt-2 text-left">
+                            <h5>
+                            <img id="weapon1_damage_type_img" src="images/slash.webp" alt=""> <span id="weapon1_damage_type_text" class="px-1">Slash Damage:</span>
+                            </h5>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <input type="text" class="form-control form-control text-center" id="weapon1_normal_damage" value=574 readonly>
+                        </div>
+                        </div>
+
+                        <div class="row pb-2 hidden" id="weapon1_elemental_container">
+                            <div class="col-md-8 px-3 pt-2 text-left">
+                                <h5>
+                                <img src="/images/lightning.webp" alt="">
+                                <span class="px-1">Elemental Damage:</span>
+                                </h5>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <input type="text" class="form-control form-control text-center" id="weapon1_elemental_damage" value=0 readonly>
+                            </div>
+                        </div>
+
+                        <div class="row pb-3 border-bottom">
+                        <div class="col-md-8 px-4 pt-2 text-left">
+                            <h4>
+                            <b>
+                                Weapon Damage:
+                            </b>
+
+                            <!-- Tooltip! -->
+                            <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Weapon damage refers to this number:</p><img src=&quot;images/greataxe_weapon_damage.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>This may appear incorrectly in-game for weapons with scaling gems</p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                            </h4>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <input type="text" class="form-control form-control-lg text-center text-light bg-dark" id="weapon1_weapon_damage" value=574 style="font-weight: 900;font-size:x-large;" readonly>
+                        </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                    <div class="card-body">
+                    <h3 class="card-title text-center border-bottom pb-2">
+                        Weapon 2
+                    </h3>
+                        <div class="row">
+                        <div class="col pb-4">
+                            <select class="form-select" name="weapon2_name" id="weapon2_name">
+                                <option hidden value="blunderbuss">Blunderbuss</option>
+                                <option value="greataxe">Great Axe</option>
+                                <option value="warhammer">War Hammer</option>
+                                <option value="hatchet">Hatchet</option>
+                                <option value="sword">Sword</option>
+                                <option value="spear">Spear</option>
+                                <option value="bow">Bow</option>
+                                <option value="musket">Musket</option>
+                                <option value="rapier">Rapier</option>
+                                <option value="firestaff">Fire Staff</option>
+                                <option value="icegauntlet">Ice Gauntlet</option>
+                                <option value="voidgauntlet">Void Gauntlet</option>
+                                <option value="blunderbuss">Blunderbuss</option>
+                            </select>
+                        </div>
+                        </div>
+                        <h3 class="card-title text-center text-warning" style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+                        <span style="text-shadow: 3px 3px black;" id="weapon2_display_name">
+                            Blunderbuss
+                        </span>
+                        </h3>
+                        <img id="weapon2_img" src="/images/blunderbuss.png" alt="">
+
+                        <!-- Weapon Stats -->
+                        <!-- GS -->
+                        <div class="row">
+                        <div class="col-md-9 px-4">
+                            <h4 class="card-title text-left pt-1">
+                            <b>
+                                Gear Score:
+                            </b>
+                            </h4>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" name="weapon2_gs" class="form-control" id="weapon2_gs" value=600 min="100" max="625">
+                        </div>
+                        </div>
+                        <div class="row px-4 pb-3 pt-2">
+                            <input type="range" class="form-range gs_slider" min="100" max="625" step="1" id="weapon2_gs_slider" value=600>
+                        </div>
+
+                        <div class="row">
+                        <div class="col-md-7 px-4">
+                            <h5 class="card-title text-left pt-1">
+                            Gem Type:
+                            </h5>
+                        </div>
+                        <div class="col-md-5">
+                            <select class="form-select" name="weapon2_gem" id="weapon2_gem">
+                            <option hidden value="None">None</option>
+                            <option value="None">None</option>
+                            <option value="T2 Focus">T2 Focus</option>
+                            <option value="T3 Focus">T3 Focus</option>
+                            <option value="T4 Focus">T4 Focus</option>
+                            <option value="T5 Focus">T5 Focus</option>
+                            <option value="T2 Intelligence">T2 Intelligence</option>
+                            <option value="T3 Intelligence">T3 Intelligence</option>
+                            <option value="T4 Intelligence">T4 Intelligence</option>
+                            <option value="T5 Intelligence">T5 Intelligence</option>
+                            </select>
+                        </div>
+                        </div>
+
+                        <div class="row pt-2">
+                        <div class="col-md-9 px-4">
+                            <h5 class="card-title text-left pt-1">
+                            Base Damage:
+
+                            <!-- Tooltip! -->
+                            <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Base damage refers to this number:</p><img src=&quot;/images/greataxe_base_damage_crop.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>If your weapon has two damage types, this is added together.</p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                            </h5>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" name="weapon2_damage" class="form-control text-center" id="weapon2_damage" value=212 readonly>
+                        </div>
+                        </div>
+
+                        <!-- Weapon Damage -->
+                        <div class="pt-3"> </div>
+                        <div class="row border-top pt-3"></div>
+
+                        <div class="row pb-2">
+                        <div class="col-md-8 px-3 pt-2 text-left">
+                            <h5>
+                            <img id="weapon2_damage_type_img" src="/images/thrust.webp" alt=""> <span id="weapon2_damage_type_text" class="px-1">Thrust Damage:</span>
+                            </h5>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <input type="text" class="form-control form-control text-center" id="weapon2_normal_damage" value=525 readonly>
+                        </div>
+                        </div>
+
+                        <div class="row pb-2 hidden" id="weapon2_elemental_container">
+                            <div class="col-md-8 px-3 pt-2 text-left">
+                                <h5>
+                                <img src="/images/lightning.webp" alt="">
+                                <span class="px-1">Elemental Damage:</span>
+                                </h5>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <input type="text" class="form-control form-control text-center" id="weapon2_elemental_damage" value=0 readonly>
+                            </div>
+                        </div>
+
+                        <div class="row pb-3 border-bottom">
+                        <div class="col-md-8 px-4 pt-2 text-left">
+                            <h4>
+                            <b>
+                                Weapon Damage:
+                            </b>
+
+                            <!-- Tooltip! -->
+                            <span data-toggle="tooltip" title="<p class=&quot;lead pt-1&quot;>Weapon damage refers to this number:</p><img src=&quot;/images/greataxe_weapon_damage.png&quot;style=&quot;border: 2px solid #495867;&quot; alt=&quot;&quot;><p>This may appear incorrectly in-game for weapons with scaling gems</p>"><i class="px-2 bi-question-circle-fill"></i></span>
+
+                            </h4>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            <input type="text" class="form-control form-control-lg text-center text-light bg-dark" id="weapon2_weapon_damage" value=525 style="font-weight: 900;font-size:x-large;" readonly>
+                        </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    </section>
+
+    <section class="py-4 text-light">
+    <div class="container">
+        <!-- How is this Calculated? -->
+        <h2 class="text-center pb-3">
+        How Is This Calculated?
+        </h2>
+
+        <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+        <div class="card-body">
+            <div class="row">
+            <div class="col-12">
+                <div class="container border-bottom">
+                <p class="lead pt-3">
+                    <i><b>Weapon damage</b></i> is the sum of your <i><b>level damage</b></i> and <i><b>attribute damage</b></i>. Both of these depend on your weapon's <i><b>base damage</b></i>.
+                </p>
+                </div>
+            </div>
+            </div>
+            <div class="row pb-2">
+            <div class="col-lg-4">
+                <div class="container">
+                <p class="pt-4">
+                    <i><b>Level damage</b></i> is calculated like so:
+                </p>
+                <p>
+                    ((Character Level - 1) * 0.025 + 1) * Base Damage
+                </p>
+                <p class="pt-1">
+                    <i><b>Attribute damage</b></i> is increased by a percentage of your <i><b>base damage</b></i> for each point you add, with diminishing returns.<p class="lead">
+                </p>
+                <table class="table text-light">
+                    <thead>
+                    <tr>
+                        <td>Points Range</td>
+                        <td>% Increase</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>6-100</td>
+                        <td>+1.625%</td>
+                    </tr>
+                    <tr>
+                        <td>101-150</td>
+                        <td>+1.3%</td>
+                    </tr>
+                    <tr>
+                        <td>151-200</td>
+                        <td>+1.17%</td>
+                    </tr>
+                    <tr>
+                        <td>201-250</td>
+                        <td>+1.04%</td>
+                    </tr>
+                    <tr>
+                        <td>251-300</td>
+                        <td>+0.91%</td>
+                    </tr>
+                    <tr>
+                        <td>301+</td>
+                        <td>+0.78%</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+            <div class="col-lg-8 pt-4">
+                <img src="/images/greataxe_graph_4.png" alt="" style="border: 2px solid #495867;">
+            </div>
+            </div>
+
+            <div class="py-2"></div>
+
+            <div class="container border-top pt-2">
+            <h4>
+                Weapons that scale with two attributes:
+            </h4>
+            <p class=lead>
+                If a weapon scales with two attributes, then it will have two attributes damages which contribute to its weapon damage. Its primary (the one listed first) attribute damage scales at 90%, and its secondary at 65%.
+                This means that your first point in strength will add <b><i>1.625%</i></b> of base damage for a great axe and <b><i>1.463%</i></b> for a hatchet. 
+            </p>
+            </div>
+
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <section class="pb-5 pt-3 text-light">
+    <h2 class="text-center pb-3">
+        Credits/Attributions
+    </h2>
+    <div class="container" id="credits">
+        <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+        <div class="card-body">
+            <table class="table text-light" style="font-weight: normal;">
+            <tobdy>
+                <p class="lead">
+                <tr>
+                    <th>
+                    • New World Datatables (Datamining) by navarroj00 (<a href="https://github.com/navarroj00/new-world-datatables" target="_blank">Github</a>)
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                    • Original Damage Calculator by Bunzaga (<a href="https://docs.google.com/spreadsheets/d/14I0C78KyaWx0pHEV30M59rkZszqiNt2E6gaHYeXC9XM/edit#gid=1097157556" target="_blank">Google Sheets</a>)
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                    • Modified Damage Calculator by OJ_of_Steel (<a href="https://docs.google.com/spreadsheets/d/1tz2PFABkykuhBxZ3MoJEO9KNwY0X20qs0gII-x370AA/edit#gid=1097157556" target="_blank">Google Sheets</a>)
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                    • New World Database by Xyo (<a href="https://nwdb.info" target="_blank">Website</a>)
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                    • New World Wiki (<a href="https://newworld.fandom.com/wiki/New_World_Wiki" target="_blank">Website</a>)
+                    </th>
+                </tr>
+                </p>
+            </tobdy>
+            </table>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="d-flex flex-wrap justify-content-between align-items-center" style="background-color: #2d3844;border-top: 1px solid #495867;">
+        <div class="container py-5">
+            <div class="row border-top">
+                <div class="col-4 d-flex align-items-center">
+                    <img src="images/nwtk-cropped-white-nt.svg" alt="" width="40" height="40" viewBox="0 0 40 40"><span class="px-3">
+                    <div class="d-none d-md-block">
+                        <p class="lead px-1 pt-3 text-light"><b>New World Tools</b></p>
+                    </div>
+                </div>
+                <div class="col-8 d-flex align-items-center justify-content-end">
+                    <a href="" style="text-decoration:none;" target="_blank">
+                        <p class="lead pt-4 g-5 px-2 text-light">NW Tools</p>
+                    </a>
+                    <a href="" target="_blank">
+                        <i class="bi bi-discord" style="font-size: 2rem;color:white"></i>
+                    </a>
+                    <div class="px-3"></div>
+                    <a href="https://discord.gg/QAHzt2dm88" style="text-decoration:none;" target="_blank">
+                        <p class="lead pt-4 g-5 px-2 text-light">Warpath</p>
+                    </a>
+                    <a href="https://discord.gg/QAHzt2dm88" target="_blank">
+                        <i class="bi bi-discord" style="font-size: 2rem;color:white"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container">
+                    <a href="/damage-calc" style="text-decoration:none;color: slategrey;">
+                        <p>• Damage Calculator</p>
+                    </a>
+                    <a href="/healing-calc" style="text-decoration:none;color: slategrey;">
+                        <p>• Healing Calculator</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
