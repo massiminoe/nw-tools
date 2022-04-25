@@ -6,6 +6,15 @@ const app = express()
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+app.use(function(request, response, next) {
+
+  if (process.env.NODE_ENV != 'development' && !request.secure) {
+     return response.redirect("https://" + request.headers.host + request.url);
+  }
+
+  next();
+})
+
 // Handlebars
 const hbs = exphbs.create({
     defaultLayout: "main",
