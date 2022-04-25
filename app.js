@@ -28,6 +28,6 @@ const baseRouter = require("./routes/baseRouter");
 app.use("", baseRouter)
 
 // Listen
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('App listening')
 })
