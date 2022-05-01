@@ -214,6 +214,7 @@ window.onload = function () {
         } else if (gs1.value < 100) {
             gs1.value = 100;
         };
+        slider1.value = gs1.value;
         updateWeapons();
     }, false);
     gs2.addEventListener('change', function () {
@@ -222,6 +223,7 @@ window.onload = function () {
         } else if (gs2.value < 100) {
             gs2.value = 100;
         };
+        slider2.value = gs2.value;
         updateWeapons();
     }, false);
 

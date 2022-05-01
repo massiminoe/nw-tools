@@ -33,6 +33,25 @@ div.card.wd {
   padding-right: 6px;
 }
 
+.notification-red {
+  position: absolute;
+  font-size: 14px;
+  font-weight: bold;
+  top: -6px;
+  left: 140px;
+  background-color: red;
+  border-radius: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.notification-card {
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 10px;
+  background-color: rgb(238, 231, 139);
+}
+
 #tooltip[data-popper-placement^='top'] > #arrow {
   bottom: -4px;
 }
