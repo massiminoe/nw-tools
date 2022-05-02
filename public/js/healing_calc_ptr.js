@@ -3,8 +3,9 @@ window.onload = function () {
     let slider2 = document.getElementById("ring_gs_slider"), gs2 = document.getElementById("ring_gs");
     let blessed_check = document.getElementById("blessed_check"), blessed_text=document.getElementById("blessed_text"), blessed_icon=document.getElementById("blessed_icon");
     let sacred_check = document.getElementById("sacred_check"), sacred_text=document.getElementById("sacred_text"), sacred_icon=document.getElementById("sacred_icon");
-    let divine_blessing = document.getElementById("divine_blessing");
-    let intensify_stacks = document.getElementById("intensify_stacks");
+    let divine_blessing = document.getElementById("divine_blessing"), sacred_protection = document.getElementById('sacred_protection'), mending_protection = document.getElementById('mending_protection');
+    let divine = document.getElementById('divine'), in_sg = document.getElementById('in_sg'), disease = document.getElementById('disease');
+    let intensify_stacks = document.getElementById("intensify_stacks"), divine_gs = document.getElementById('divine_gs'), disease_value = document.getElementById('disease_value');
     let intensify = document.getElementById("intensify"), bend_light = document.getElementById("bend_light"), protectors_strength = document.getElementById("protectors_strength");
     let sg_blessed_check = document.getElementById("sg_blessed_check"), lights_embrace_buffs = document.getElementById("lights_embrace_buffs");
     let divine_embrace_outgoing = document.getElementById("divine_embrace_outgoing"), sacred_ground_outgoing = document.getElementById("sacred_ground_outgoing"), splash_of_light_outgoing = document.getElementById("splash_of_light_outgoing");
@@ -16,7 +17,15 @@ window.onload = function () {
     // Constants
     var true_base_damage = 52;
     // Variables
-    var sacred = 0.085, blessed = 0.2, focus=5, level=60, life_staff_gs = 600, armor_bonus = 0.7, gem_bonus = 0, target_buffs = 0;
+    var sacred = 0.085, blessed = 0.2, focus=5, level=60, life_staff_gs = 600, armor_bonus = 1, gem_bonus = 0, target_buffs = 0, divine_val = 0.096;
+    focus = focus_input.value;
+    level = char_level.value;
+    life_staff_gs = gs1.value;
+    update_armor_bonus();
+    update_gem_bonus();
+    target_buffs = lights_embrace_buffs.value;
+    update_blessed(life_staff_gs);
+    update_sacred(gs2.value);
     calc_outgoing();
 
     function calc_outgoing() {
@@ -26,6 +35,9 @@ window.onload = function () {
         var healing_power = level_damage + focus_damage;
 
         var outgoing_mod = 1;
+        var incoming_mod = 1;
+
+        // Outgoing
         outgoing_mod += gem_bonus;
         if (blessed_check.checked) {
             outgoing_mod += blessed;
@@ -40,7 +52,8 @@ window.onload = function () {
             outgoing_mod += 0.2;
         }
         if (protectors_strength.checked) {
-            outgoing_mod += 0.1;
+            //outgoing_mod += 0.1;  // Intended value
+            outgoing_mod += 0.2;  // Bugged value, in-game. Last tested 1/5/22
         }
         if (divine_blessing.checked) {
             outgoing_mod += 0.3;
@@ -48,24 +61,42 @@ window.onload = function () {
         if (focus >= 150) {
             outgoing_mod += 0.2;
         }
-        final_healing = healing_power * outgoing_mod * armor_bonus;
+        if (mending_protection.checked) {
+            outgoing_mod += 0.23  // 600 GS
+        }
+        
+        // Incoming - capped at 2x
+        if (sacred_protection.checked) {
+            incoming_mod += 0.05;
+        }
+        if (divine.checked) {
+            incoming_mod += perk_val(0.05, 0.096, divine_gs.value);
+        }
+        if (in_sg.checked) {
+            incoming_mod += 0.5;
+        }
+        if (disease.checked) {  // Caps at 0.7
+            incoming_mod = Math.max(incoming_mod - disease_value.value / 100, 0.7);
+        }
+
+        final_healing = healing_power * outgoing_mod * incoming_mod * armor_bonus;
 
         light_attack_outgoing.innerHTML = Math.round(final_healing * 0.16);
         divine_embrace_outgoing.innerHTML = Math.round(final_healing * 1.2);
-        if (sg_blessed_check.checked) {
-            sacred_ground_outgoing.innerHTML = Math.round(final_healing * 0.16 * 1.5);
+        if (sg_blessed_check.checked && !in_sg.checked) {
+            sacred_ground_outgoing.innerHTML = Math.round(final_healing * 0.16 / incoming_mod * (incoming_mod + 0.5));
         } else {
             sacred_ground_outgoing.innerHTML = Math.round(final_healing * 0.16);
         }
         splash_of_light_outgoing.innerHTML = Math.round(final_healing * 0.6);
         orb_of_protection_outgoing.innerHTML = Math.round(final_healing * 0.08);
         recovery_outgoing.innerHTML = Math.round(final_healing * 0.06);
-        lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.15 * target_buffs) * 0.8);
+        lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.15 * target_buffs * incoming_mod * armor_bonus) * 0.8);
         beacon_outgoing.innerHTML = Math.round(final_healing * 0.16);
     }
 
     // Life Staff
-    lifestaff_gem.addEventListener('change', function () {
+    function update_gem_bonus() {
         var gem = lifestaff_gem.value;
         if (gem === "none_gem") {
             gem_bonus = 0;
@@ -78,6 +109,10 @@ window.onload = function () {
         } else if (gem === "diamond_t5") {
             gem_bonus = 0.15;
         }
+    }
+
+    lifestaff_gem.addEventListener('change', function () {
+        update_gem_bonus();
         calc_outgoing();
     }, false);
 
@@ -167,6 +202,16 @@ window.onload = function () {
         sacred_text.innerHTML = "Sacred: ".concat(value.toString(), "%");
     }
 
+    function update_armor_bonus() {
+        if (equip_load.value === "Heavy") {
+            armor_bonus = 0.7;
+        } else if (equip_load.value === "Medium") {
+            armor_bonus = 1;
+        } else if (equip_load.value === "Light") {
+            armor_bonus = 1.3;
+        }
+    }
+
     // Passives
     bend_light.addEventListener('change', function () {
         calc_outgoing();
@@ -175,6 +220,27 @@ window.onload = function () {
         calc_outgoing();
     });
     divine_blessing.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    sacred_protection.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    mending_protection.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    divine.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    in_sg.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    disease.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    divine_gs.addEventListener('change', function () {
+        calc_outgoing();
+    });
+    disease_value.addEventListener('change', function () {
         calc_outgoing();
     });
     // Intensify
@@ -220,13 +286,7 @@ window.onload = function () {
         calc_outgoing();
     })
     equip_load.addEventListener('change', function() {
-        if (equip_load.value === "Heavy") {
-            armor_bonus = 0.7;
-        } else if (equip_load.value === "Medium") {
-            armor_bonus = 1;
-        } else if (equip_load.value === "Light") {
-            armor_bonus = 1.3;
-        }
+        update_armor_bonus();
         calc_outgoing();
     });
 
@@ -245,12 +305,38 @@ window.onload = function () {
         hideOnClick: false,
     });
     tippy('#protectors_strength_label', {
-        content: "<h4><strong>Protector's Strength</strong></h4>If you have a buff heal for 10% more.",
+        content: "<h4><strong>Protector's Strength</strong></h4>If you have a buff heal for 10% more.<p></p><p><i class='bi bi-exclamation-triangle'></i> Protector's Strength is currently bugged and grants a 20% bonus instead. This is reflected in the calculations.</p>",
         allowHTML: true,
         hideOnClick: false,
     });
     tippy('#bend_light_label', {
         content: "<h4><strong>Bend Light</strong></h4>After a dodge, your heals are 20% more effective for 5s.",
+        allowHTML: true,
+        hideOnClick: false,
+    });
+    tippy('#sacred_protection_label', {
+        content: "<h4><strong>Sacred Protection</strong></h4>While holding a Life Staff, increase the amount of incoming healing to all friendlies in your group by 5%",
+        allowHTML: true,
+        hideOnClick: false,
+    });
+    tippy('#mending_protection_label', {
+        content: "<h4><strong>Mending Protection</strong></h4>Increase healing power by 23% (600 GS) for 3 seconds if Orb of Protection heals an ally with less than 50% health.",
+        allowHTML: true,
+        hideOnClick: false,
+    });
+    tippy('#divine_label', {
+        content: "<h4><strong>Divine</strong></h4>You gain 5-9.8% more health from all incoming healing effects.",
+        allowHTML: true,
+        hideOnClick: false,
+    });
+    tippy('#in_sg_label', {
+        content: "<h4><strong>Anointed</strong></h4><p>While allies are in Sacred Ground, they are healed for 50% more from all healing.</p>",
+        allowHTML: true,
+        hideOnClick: false,
+    });
+    tippy('#disease_label', {
+        
+        content: "<h4><strong>Disease</strong></h4>Reduces incoming healing. Net effect is capped at 30%.",
         allowHTML: true,
         hideOnClick: false,
     });

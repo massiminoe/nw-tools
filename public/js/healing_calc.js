@@ -92,7 +92,7 @@ window.onload = function () {
         splash_of_light_outgoing.innerHTML = Math.round(final_healing * 0.6);
         orb_of_protection_outgoing.innerHTML = Math.round(final_healing * 0.08);
         recovery_outgoing.innerHTML = Math.round(final_healing * 0.06);
-        lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.3 * target_buffs) * 0.8);
+        lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.3 * target_buffs * incoming_mod) * 0.8);
         beacon_outgoing.innerHTML = Math.round(final_healing * 0.16);
     }
 
