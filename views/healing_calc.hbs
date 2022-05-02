@@ -129,50 +129,69 @@
 
                 <div class="row pt-2 pb-2"></div>
 
-                <!-- Ring -->
                 <div class="card bg-dark text-light" style="border: 1px solid #495867;">
-                    <div class="card-body">
-                        <div class="h3 text-center border-bottom pb-2" style="text-shadow: 3px 3px black;">
-                            Sacred Ring
-                        </div>
-                        <img src="/images/ruby_ring.png" class="center d-md-block" alt="">
+                        <div class="card-body">
+                            <h3 class="card-title text-center pb-2 border-bottom" style="text-shadow: 3px 3px black;">
+                                Passives
+                            </h3>
 
-                        <!-- GS -->
-                        <div class="row pt-1">
-                            <div class="col-md-7 px-4">
-                              <h4 class="card-title text-left pt-1">
-                                <b>
-                                  Gear Score:
-                                </b>
-                              </h4>
-                            </div>
-                            <div class="col-md-5 pt-3">
-                              <input type="number" name="gs" class="form-control" id="ring_gs" value=600 onchange="document.getElementById('ring_gs_slider').value = this.value;">
-                            </div>
-                        </div>
-                        <div class="row px-4 pb-3 pt-2">
-                            <input type="range" class="form-range gs_slider" min="100" max="625" step="1" id="ring_gs_slider" value="600">
-                        </div>
-
-                        <div class="pt-1">
-                            <div class="row px-2">
-                                <div class="col-1">
-                                  <input class="form-check-input mt-3 mr-5" type="checkbox" value="" id="sacred_check" checked>
+                            <div class="row pt-2">
+                                <div class="col-4">
+                                    <input type="checkbox" id="bend_light" style="display: none;">
+                                    <label for="bend_light" id="bend_light_label" class="skill-circle-small center" style="background-image: url('/images/bend_light.webp"');'></label>
                                 </div>
-                                <div class="col-10 mt-1">
-                                    <label for="sacred_check">
-                                        <h4>
-                                            <img src="/images/sacred.png" style="max-width: 19%;height: auto;" id="sacred_icon" alt="">
-
-                                          <span class="px-2 pt-2" id="sacred_text">Sacred: 8.5%</span>
-                                        </h4>
-                                    </label>
+                                <div class="col-8 pt-2 text-center">
+                                    <h4><strong>Bend Light</strong></h4>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row pt-2">
+                                <div class="col-4">
+                                    <input type="checkbox" id="intensify" style="display: none;" checked>
+                                    <label for="intensify" id="intensify_label" class="skill-circle-small center" style="background-image: url('/images/intensify.webp');"></label>
+                                </div>
+                                <div class="col-8 pt-2 text-center">
+                                    <h4><strong>Intensify<br><input type="number" id="intensify_stacks" class="stacks" min=0 max=3 style="width: 40px;" value=0></strong></h4>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-4">
+                                    <input type="checkbox" id="protectors_strength" style="display: none;">
+                                    <label for="protectors_strength" id="protectors_strength_label" class="skill-circle-small center" style="background-image: url('/images/protectors_strength.webp');"></label>    
+                                </div>
+                                <div class="col-8 pt-2 text-center">
+                                    <h4><strong>Protector's Strength</strong></h4>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-4">
+                                    <input type="checkbox" id="divine_blessing" style="display: none;">
+                                    <label for="divine_blessing" id="divine_blessing_label" class="skill-circle-small center" style="background-image: url('/images/divine_blessing.png');"></label>
+                                </div>
+                                <div class="col-8 pt-2 text-center">
+                                    <h4><strong>Divine Blessing</strong></h4>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-4">
+                                    <input type="checkbox" id="sacred_protection" style="display: none;">
+                                    <label for="sacred_protection" id="sacred_protection_label" class="skill-circle-small center" style="background-image: url('/images/sacred_protection.png');"></label>
+                                </div>
+                                <div class="col-8 pt-2 text-center">
+                                    <h4><strong>Sacred Protection</strong></h4>
+                                </div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-4">
+                                    <input type="checkbox" id="mending_protection" style="display: none;" checked>
+                                    <label for="mending_protection" id="mending_protection_label" class="skill-circle-small center" style="background-image: url('/images/mending_protection.png');"></label>
+                                </div>
+                                <div class="col-8 pt-2 text-center">
+                                    <h4><strong>Mending Protection</strong></h4>
+                                </div>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
 
               </div>
               <!-- Life Staff -->
@@ -182,10 +201,8 @@
                     <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                         <div class="card-body">
                             <h3 class="card-title text-center pb-2 border-bottom" style="text-shadow: 3px 3px black;">
-                                Life Staff
+                                <div class="" style="display: flex;flex-direction: row;"><img src='/images/lifestaff_icon.png' class="weapon-icon" alt=""><span style="vertical-align: sup;padding-left: 10px;color: var(--legendary)"><b>Orichalcum Life Staff</b></span></div>
                             </h3>
-
-                            <img src='/images/lifestaff.png' class="legendary-backgroun" alt="">
 
                             <!-- Gem -->
                             <div class="row">
@@ -240,43 +257,92 @@
                                 </div>
                             </div>
 
-                            <div class="border-top">
-                                <h3 class="text-center pt-2">
-                                    Passives
-                                </h3>
-                                <div class="row pt-2">
-                                    <div class="col-md-3">
-                                        <p class="text-center d-none d-xl-block pt-3 pb-2">Bend Light</p>
-                                        <input type="checkbox" id="bend_light" style="display: none;">
-                                        <label for="bend_light" id="bend_light_label" class="skill-circle center" style="background-image: url('/images/bend_light.webp"');'></label>
+                           
+
+                        </div>
+                    </div>
+
+                  <div class="row pt-2 pb-2"></div>
+
+                  <!-- Ring -->
+                    <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                        <div class="card-body">
+                            <div class="h3 text-center border-bottom pb-2" style="text-shadow: 3px 3px black;">
+                                <div class="" style="display: flex;flex-direction: row;"><img src='/images/ruby_ring.png' class="weapon-icon" alt=""><span style="vertical-align: sup;padding-left: 10px;color: var(--legendary)"><b>Sacred Ring</b></span></div>
+                            </div>
+
+                            <!-- GS -->
+                            <div class="row pt-1">
+                                <div class="col-md-7 px-4">
+                                <h4 class="card-title text-left pt-1">
+                                    <b>
+                                    Gear Score:
+                                    </b>
+                                </h4>
+                                </div>
+                                <div class="col-md-5 pt-3">
+                                <input type="number" name="gs" class="form-control" id="ring_gs" value=600 onchange="document.getElementById('ring_gs_slider').value = this.value;">
+                                </div>
+                            </div>
+                            <div class="row px-4 pb-3 pt-2">
+                                <input type="range" class="form-range gs_slider" min="100" max="625" step="1" id="ring_gs_slider" value="600">
+                            </div>
+
+                            <div class="pt-1">
+                                <div class="row px-2">
+                                    <div class="col-1">
+                                    <input class="form-check-input mt-3 mr-5" type="checkbox" value="" id="sacred_check" checked>
                                     </div>
-                                    <div class="col-md-3">
-                                        <p class="text-center d-none d-xl-block">Intensify<input type="number" id="intensify_stacks" class="stacks" min=0 max=3 style="width: 40px;" value=0></p>
-                                        <input type="checkbox" id="intensify" style="display: none;">
-                                        <label for="intensify" id="intensify_label" class="skill-circle center" style="background-image: url('/images/intensify.webp');"></label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="text-center d-none d-xl-block">Protector's Strength</p>
-                                        <input type="checkbox" id="protectors_strength" style="display: none;">
-                                        <label for="protectors_strength" id="protectors_strength_label" class="skill-circle center" style="background-image: url('/images/protectors_strength.webp');"></label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <p class="text-center d-none d-xl-block">Diving Blessing</p>
-                                        <input type="checkbox" id="divine_blessing" style="display: none;">
-                                        <label for="divine_blessing" id="divine_blessing_label" class="skill-circle center" style="background-image: url('/images/divine_blessing.png');"></label>
+                                    <div class="col-10 mt-1">
+                                        <label for="sacred_check">
+                                            <h4>
+                                                <img src="/images/sacred.png" style="max-width: 19%;height: auto;" id="sacred_icon" alt="">
+
+                                            <span class="px-2 pt-2" id="sacred_text">Sacred: 8.5%</span>
+                                            </h4>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
                     </div>
+
+                    <div class="row pt-2 pb-2"></div>
+
+
+                  <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                      <div class="container pb-4">
+                            <h3 class="text-center pt-2" style="text-shadow: 3px 3px black;">
+                                Target Modifiers
+                            </h3>
+                            <div class="row pt-2">
+                                <div class="col-md-4">
+                                    <p class="text-center d-none d-xl-block">Divine<br>GS: <input type="number" id="divine_gs" class="" min=100 max=625 style="width: 60px;" value=600></p>
+                                    <input type="checkbox" id="divine" style="display: none;">
+                                    <label for="divine" id="divine_label" class="skill-circle center" style="background-image: url('/images/divine.png"');'></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="text-center pb-2 d-none d-xl-block">In Sacred Ground</p>
+                                    <input type="checkbox" id="in_sg" style="display: none;">
+                                    <label for="in_sg" id="in_sg_label" class="skill-circle center" style="background-image: url('/images/sacred_ground.webp"');'></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="text-center d-none d-xl-block">Disease<br><input type="number" id="disease_value" class="" min=0 max=100 style="width: 60px;" value=0>%</p>
+                                    <input type="checkbox" id="disease" style="display: none;">
+                                    <label for="disease" id="disease_label" class="skill-circle center" style="background-image: url('/images/disease.png');"></label>
+                                </div>
+                            </div>
+                      </div>
+                  </div>
+
                   </div>
 
                   <div class="col-lg-6">
                     <div class="card bg-dark text-light" style="border: 1px solid #495867;">
                         <div class="card-body">
                             <h3 class="card-title text-center pb-2 border-bottom" style="text-shadow: 3px 3px black;">
-                                Outgoing Healing<i class="px-2 bi-question-circle-fill" id="outgoing_tooltip"></i>
+                                Healing Received
                             </h3>
                             <div class="row pt-2">
                                 <div class="col-4">
