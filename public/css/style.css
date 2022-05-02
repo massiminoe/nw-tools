@@ -45,6 +45,12 @@ div.card.wd {
   padding-right: 6px;
 }
 
+.weapon-icon {
+  width: 90px;
+  border: 1px solid var(--legendary);
+  background: linear-gradient(360deg,rgba(247, 162, 45,.5) 0,rgba(0,0,0,.5) 100%);
+}
+
 .notification-card {
   font-size: 20px;
   font-weight: 700;
@@ -122,6 +128,16 @@ div.card.wd {
   border: 3px solid white;
   width: 100px;
   height: 100px;
+  opacity: 0.3;
+}
+
+.skill-circle-small {
+  background: black;
+  background-size: cover;
+  border-radius: 50%;
+  border: 3px solid white;
+  width: 80px;
+  height: 80px;
   opacity: 0.3;
 }
 
