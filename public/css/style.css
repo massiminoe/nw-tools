@@ -188,3 +188,18 @@ input[type="checkbox"]:focus {
   top: 155px;
   z-index: 1;
 }
+
+.col-modifiers {
+  display: none;
+}
+
+@media screen and (max-width: 1280px) {
+
+  .row-modifiers {
+    display: none;
+  }
+
+  .col-modifiers {
+    display: flex;
+  }
+}

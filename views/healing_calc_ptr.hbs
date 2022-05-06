@@ -189,7 +189,7 @@
                             </div>
                             <div class="row pt-2">
                                 <div class="col-4">
-                                    <input type="checkbox" id="mending_protection" style="display: none;" checked>
+                                    <input type="checkbox" id="mending_protection" style="display: none;">
                                     <label for="mending_protection" id="mending_protection_label" class="skill-circle-small center" style="background-image: url('/images/mending_protection.png');"></label>
                                 </div>
                                 <div class="col-8 pt-2 text-center">
@@ -318,12 +318,12 @@
                     <div class="row pt-2 pb-2"></div>
 
 
-                  <div class="card bg-dark text-light" style="border: 1px solid #495867;">
+                  <div class="card bg-dark text-light mb-3" style="border: 1px solid #495867;">
                       <div class="container pb-4">
                             <h3 class="text-center pt-2" style="text-shadow: 3px 3px black;">
                                 Target Modifiers
                             </h3>
-                            <div class="row pt-2">
+                            <div class="row pt-2 row-modifiers">
                                 <div class="col-md-4">
                                     <p class="text-center d-none d-xl-block">Divine<br>GS: <input type="number" id="divine_gs" class="" min=100 max=625 style="width: 60px;" value=600></p>
                                     <input type="checkbox" id="divine" style="display: none;">
@@ -339,6 +339,39 @@
                                     <input type="checkbox" id="disease" style="display: none;">
                                     <label for="disease" id="disease_label" class="skill-circle center" style="background-image: url('/images/disease.png');"></label>
                                 </div>
+                            </div>
+
+                            <div class="row pt-2 col-modifiers" style="text-align: left">
+                                <div class="row pt-2">
+                                    <div class="col-5">
+                                        <input type="checkbox" id="divine_col" style="display: none;">
+                                        <label for="divine_col" id="divine_label_col" class="skill-circle" style="background-image: url('/images/divine.png"');'></label>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="row"><h4><strong>Divine</strong></h4></div>
+                                        <p>GS: <input type="number" id="divine_gs_col" class="" min=100 max=625 style="width: 60px;" value=600></p>
+                                    </div>
+                                </div>
+                                <div class="row pt-2">
+                                    <div class="col-5">
+                                        <input type="checkbox" id="in_sg_col" style="display: none;">
+                                    <label for="in_sg_col" id="in_sg_label_col" class="skill-circle center" style="background-image: url('/images/sacred_ground.webp"');'></label>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="row"><h4><strong>In Sacred Ground</strong></h4></div>
+                                    </div>
+                                </div>
+                                <div class="row pt-2">
+                                    <div class="col-5">
+                                        <input type="checkbox" id="disease_col" style="display: none;">
+                                    <label for="disease_col" id="disease_label_col" class="skill-circle center" style="background-image: url('/images/disease.png');"></label>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="row"><h4><strong>Disease</strong></h4></div>
+                                        <p><input type="number" id="disease_value_col" class="" min=0 max=100 style="width: 60px;" value=0>%</p>
+                                    </div>
+                                </div>
+                                
                             </div>
                       </div>
                   </div>
