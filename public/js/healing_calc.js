@@ -14,6 +14,11 @@ window.onload = function () {
     let char_level = document.getElementById("level"), focus_input = document.getElementById("focus"), equip_load = document.getElementById("equip_load");
     let lifestaff_gem = document.getElementById("lifestaff_gem");
 
+    // Mobile
+    let divine_col = document.getElementById("divine_col"), divine_gs_col = document.getElementById("divine_gs_col");
+    let in_sg_col = document.getElementById("in_sg_col")
+    let disease_col = document.getElementById("disease_col"), disease_value_col = document.getElementById("disease_value_col");
+
     // Constants
     var true_base_damage = 52;
     // Variables
@@ -163,6 +168,40 @@ window.onload = function () {
         blessed = value / 100;
         blessed_text.innerHTML = "Blessed: ".concat(value.toString(), "%");
     }
+
+    divine_col.addEventListener('change', function () {
+        divine.checked = divine_col.checked;
+        calc_outgoing();
+    });
+    
+    divine_gs_col.addEventListener('change', function () {
+        divine_gs.value = divine_gs_col.value;
+        calc_outgoing();
+    });
+    
+    in_sg_col.addEventListener('change', function () {
+        in_sg.checked = in_sg_col.checked;
+        calc_outgoing();
+    });
+
+    disease_col.addEventListener('change', function () {
+        disease.checked = disease_col.checked;
+        calc_outgoing();
+    });
+    
+    disease_value_col.addEventListener('change', function () {
+        disease_value.value = disease_value_col.value;
+        calc_outgoing();
+    });
+
+    // On resize, ensure mobile values match desktop
+    window.addEventListener('resize', function () {
+        divine_col.checked = divine.checked;
+        divine_gs_col.value = divine_gs.value;
+        in_sg_col.checked = in_sg.checked;
+        disease_col.checked = disease.checked;
+        disease_value_col.value = disease_value.value;
+    });
 
     // Sacred
     sacred_check.addEventListener('change', function() {
@@ -340,6 +379,20 @@ window.onload = function () {
         content: "<h4><strong>Disease</strong></h4>Reduces incoming healing. Net effect is capped at 30%.",
         allowHTML: true,
         hideOnClick: false,
+    });
+    tippy('#divine_label_col', {
+        content: "<h4><strong>Divine</strong></h4>You gain 5-9.8% more health from all incoming healing effects.",
+        allowHTML: true,
+        hideOnClick: false,
+    });
+    tippy('#in_sg_label_col', {
+        content: "<h4><strong>Anointed</strong></h4><p>While allies are in Sacred Ground, they are healed for 50% more from all healing.</p>",
+        allowHTML: true,
+    });
+    tippy('#disease_label_col', {
+        
+        content: "<h4><strong>Disease</strong></h4>Reduces incoming healing. Net effect is capped at 30%.",
+        allowHTML: true,
     });
     tippy('#light_attack', {
         content: "<h4><strong>Blissful Touch</strong></h4><p>Light attacks now heal for 16% weapon damage when passing through an ally.</p>",
