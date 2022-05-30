@@ -15,10 +15,10 @@ baseRouter.get('/healing_calc', (req, res) => {
 });
 
 baseRouter.get('/healing-calc-ptr', (req, res) => {
-    res.render('healing_calc_ptr', {layout: false})
+    res.redirect('/healing-calc')
 });
 baseRouter.get('/healing_calc_ptr', (req, res) => {
-    res.render('healing_calc_ptr', {layout: false})
+    res.redirect('/healing-calc')
 });
 
 baseRouter.get('/damage-calc', (req, res) => {
