@@ -22,7 +22,7 @@ window.onload = function () {
     // Constants
     var true_base_damage = 52;
     // Variables
-    var sacred = 0.085, blessed = 0.2, focus=5, level=60, life_staff_gs = 600, armor_bonus = 0, gem_bonus = 0, target_buffs = 0, divine_val = 0.096;
+    var sacred = 0.085, blessed = 0.2, focus=5, level=60, life_staff_gs = 600, armor_bonus = 1, gem_bonus = 0, target_buffs = 0, divine_val = 0.096;
     focus = focus_input.value;
     level = char_level.value;
     life_staff_gs = gs1.value;
@@ -43,7 +43,6 @@ window.onload = function () {
         var incoming_mod = 1;
 
         // Outgoing
-        outgoing_mod += armor_bonus;
         outgoing_mod += gem_bonus;
         if (blessed_check.checked) {
             outgoing_mod += blessed;
@@ -85,7 +84,7 @@ window.onload = function () {
             incoming_mod = Math.max(incoming_mod - disease_value.value / 100, 0.7);
         }
 
-        final_healing = healing_power * outgoing_mod * incoming_mod;
+        final_healing = healing_power * outgoing_mod * incoming_mod * armor_bonus;
 
         light_attack_outgoing.innerHTML = Math.round(final_healing * 0.16);
         divine_embrace_outgoing.innerHTML = Math.round(final_healing * 1.2);
@@ -97,7 +96,7 @@ window.onload = function () {
         splash_of_light_outgoing.innerHTML = Math.round(final_healing * 0.6);
         orb_of_protection_outgoing.innerHTML = Math.round(final_healing * 0.08);
         recovery_outgoing.innerHTML = Math.round(final_healing * 0.06);
-        lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.3 * target_buffs * incoming_mod) * 0.8);
+        lights_embrace_outgoing.innerHTML = Math.round((final_healing + healing_power * 0.15 * target_buffs * incoming_mod * armor_bonus) * 0.8);
         beacon_outgoing.innerHTML = Math.round(final_healing * 0.16);
     }
 
@@ -244,11 +243,11 @@ window.onload = function () {
 
     function update_armor_bonus() {
         if (equip_load.value === "Heavy") {
-            armor_bonus = 0;
+            armor_bonus = 0.7;
         } else if (equip_load.value === "Medium") {
-            armor_bonus = 0.15;
+            armor_bonus = 1;
         } else if (equip_load.value === "Light") {
-            armor_bonus = 0.3;
+            armor_bonus = 1.3;
         }
     }
 
@@ -397,7 +396,6 @@ window.onload = function () {
     tippy('#light_attack', {
         content: "<h4><strong>Blissful Touch</strong></h4><p>Light attacks now heal for 16% weapon damage when passing through an ally.</p>",
         allowHTML: true,
-        hideOnClick: false,
     });
     tippy('#divine_embrace', {
         content: "<h4><strong>Divine Embrace</strong></h4><p>Heal target for 120% weapon damage.</p>Costs 25 Mana.<br>Cooldown: 6s",
@@ -420,7 +418,7 @@ window.onload = function () {
         hideOnClick: false,
     });
     tippy('#lights_embrace', {
-        content: "<h4><strong>Light's Embrace</strong></h4><p>Heal target for 80% weapon damage +30% more for each buff on that target.</p>Costs 18 Mana.<br>Cooldown: 4s",
+        content: "<h4><strong>Light's Embrace</strong></h4><p>Heal target for 80% weapon damage +15% more for each buff on that target.</p>Costs 18 Mana.<br>Cooldown: 4s",
         allowHTML: true,
         hideOnClick: false,
     });
@@ -438,7 +436,7 @@ window.onload = function () {
         allowHTML: true,
     });
     tippy('#equip_load_tooltip', {
-        content: "<h4><strong>Healing Bonus:</strong></h4>Heavy: None<br>Medium: 15%<br>Light: 30%",
+        content: "<h4><strong>Healing Multiplier:</strong></h4>Heavy: ×0.7<br>Medium: ×1<br>Light: ×1.3",
         allowHTML: true,
     });
     tippy('#divine_blessing_label', {
