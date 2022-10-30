@@ -12,7 +12,8 @@ let trueBaseDamages = {
     icegauntlet: 56,
     voidgauntlet: 54,
     lifestaff: 55,
-    blunderbuss: 75
+    blunderbuss: 75,
+    greatsword: 78,
 };
 let weaponAttributes = {
     greataxe: ['strength'],
@@ -27,7 +28,8 @@ let weaponAttributes = {
     icegauntlet: ['intelligence'],
     voidgauntlet: ['intelligence', 'focus'],
     lifestaff: ['focus'],
-    blunderbuss: ['strength', 'intelligence']
+    blunderbuss: ['strength', 'intelligence'],
+    greatsword: ['strength', 'dexterity'],
 }
 let displayNames = {
     greataxe: "Great Axe",
@@ -42,7 +44,8 @@ let displayNames = {
     icegauntlet: "Ice Gauntlet",
     voidgauntlet: "Void Gauntlet",
     lifestaff: "Life Staff",
-    blunderbuss: "Blunderbuss"
+    blunderbuss: "Blunderbuss",
+    greatsword: "Greatsword",
 }
 let weaponDamageTypes = {
     greataxe: "Slash",
@@ -57,7 +60,8 @@ let weaponDamageTypes = {
     icegauntlet: "Ice",
     voidgauntlet: "Void",
     lifestaff: "Nature",
-    blunderbuss: "Thrust"
+    blunderbuss: "Thrust",
+    greatsword: "Slash",
 }
 
 window.onload = function () {
@@ -101,13 +105,13 @@ window.onload = function () {
         elementalDamage: 0
     };
     let weapon2 = {
-        type: "blunderbuss",
+        type: "greatsword",
         gs: 600,
         gem: "none",
-        baseDamage: 212,
-        weaponDamage: 525,
-        damageType: "Thrust",
-        normalDamage: 525,
+        baseDamage: 228,
+        weaponDamage: 566,
+        damageType: "Slash",
+        normalDamage: 566,
         elementalDamage: 0
     };
 
@@ -310,7 +314,7 @@ function base_scaling(gear_score) {
 
 function damageGain(attribute_val){
     // Calculate a weapon's damage gained from a scaling attribute, as a percentage.
-    to_subtract = 5 * 1.625  // Subtract this to account for permenanet 5 attribute points
+    to_subtract = 5 * 1.625  // Subtract this to account for permanent 5 attribute points
 
     if (attribute_val < 101){
         return (1.625 * attribute_val - to_subtract) / 100;
@@ -359,6 +363,8 @@ function calcWeaponDamage(charStats, weaponType, baseDamage) {
     let levelDamage = ((charStats.level - 1) * 0.025 + 1) * baseDamage
     if (attributes.length == 1) {
         return baseDamage * damageGain(charStats[attributes[0]]) + levelDamage;
+    } else if (weaponType === "greatsword") {
+        return 0.81 * (baseDamage * damageGain(charStats[attributes[0]])) + 0.8 * (baseDamage * damageGain(charStats[attributes[1]])) + levelDamage;
     } else if (attributes.length == 2) {
         return 0.9 * (baseDamage * damageGain(charStats[attributes[0]])) + 0.65 * (baseDamage * damageGain(charStats[attributes[1]])) + levelDamage;
     }
